@@ -3,8 +3,6 @@ package com.example.randomglassgame.services
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.Toast
-import androidx.core.view.isVisible
-import com.example.randomglassgame.R
 import com.example.randomglassgame.adapters.GlassAdapter
 import com.example.randomglassgame.databinding.ToastLostMessageBinding
 import com.example.randomglassgame.databinding.ToastWinMessageBinding
@@ -12,11 +10,7 @@ import com.example.randomglassgame.entity.Difficulty
 import com.example.randomglassgame.entity.GameInfo
 import com.example.randomglassgame.entity.Glass
 import com.example.randomglassgame.entity.Settings
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.util.zip.Inflater
 import kotlin.properties.Delegates
 
 class GameService(

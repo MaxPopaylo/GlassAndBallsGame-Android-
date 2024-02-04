@@ -1,14 +1,10 @@
 package com.example.randomglassgame.adapters
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.randomglassgame.R
 import com.example.randomglassgame.databinding.ItemGlassBinding
 import com.example.randomglassgame.entity.Glass
 import com.example.randomglassgame.entity.Settings

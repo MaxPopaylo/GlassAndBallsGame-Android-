@@ -1,13 +1,11 @@
 package com.example.randomglassgame.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.annotation.RequiresApi
 import com.example.randomglassgame.databinding.ActivitySettingsBinding
 import com.example.randomglassgame.entity.Difficulty
