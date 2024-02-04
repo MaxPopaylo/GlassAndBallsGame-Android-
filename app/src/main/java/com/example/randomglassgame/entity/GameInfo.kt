@@ -5,7 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class GameInfo(
-    var score: Int
+    var score: Int,
+    var coins: Int
 ) : Parcelable {
 
     companion object {

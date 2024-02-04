@@ -6,117 +6,154 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainMenuActivity">
 
-    <TextView
-        android:id="@+id/tvScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
-        android:text="@string/score"
-        android:textSize="24sp"
-        android:textStyle="bold"
-
-        app:layout_constraintBottom_toTopOf="@+id/btnPlay"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvScoreVal"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvScoreVal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/zero"
-        android:textSize="24sp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topMenu"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/top_menu_background"
+        android:padding="16dp"
 
-        app:layout_constraintBottom_toBottomOf="@+id/tvScore"
+        app:layout_constraintBottom_toTopOf="@+id/topMenuGuideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvScore"
-        app:layout_constraintTop_toTopOf="@+id/tvScore" />
-
-
-    <Button
-        android:id="@+id/btnPlay"
-        style="@style/customBtnStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/play"
-
-        app:layout_constraintBottom_toTopOf="@+id/btnSettings"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btnSettings"
-        style="@style/customBtnStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/settings"
+        <LinearLayout
+            android:id="@+id/llProfileInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
 
-        app:layout_constraintBottom_toTopOf="@+id/btnProfile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
+            android:background="@drawable/button_background"
+            android:orientation="horizontal"
 
-    <Button
-        android:id="@+id/btnProfile"
-        style="@style/customBtnStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/profile"
+            android:paddingStart="9dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="9dp"
+            android:paddingBottom="6dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+
+                android:layout_gravity="center"
+                android:src="@drawable/ic_leaderboard" />
+
+            <TextView
+                style="@style/buttonTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="6dp"
+                android:text="@string/stats" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivBackToStart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/button_background"
+            android:padding="6dp"
+
+            android:src="@drawable/ic_home"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="W, 1"
+            app:layout_constraintEnd_toStartOf="@+id/llBalanceInfo"
+            app:layout_constraintStart_toEndOf="@+id/llProfileInfo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:id="@+id/llBalanceInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/button_background"
+            android:orientation="horizontal"
+            android:paddingStart="9dp"
+
+            android:paddingTop="6dp"
+            android:paddingEnd="9dp"
+            android:paddingBottom="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+
+                android:layout_gravity="center"
+                android:padding="1dp"
+
+                android:src="@drawable/ic_money" />
+
+            <TextView
+                android:id="@+id/tvBalance"
+                style="@style/buttonTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="6dp"
+                android:text="@string/zero" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/bottom_menu_background"
+
+        android:padding="16dp"
+        app:cnb_animationDuration="175"
+
+        app:cnb_iconSize="26dp"
+        app:cnb_menuResource="@menu/bottom_menu"
+        app:cnb_orientationMode="horizontal"
+        app:cnb_radius="8dp"
+        app:cnb_unselectedColor="@color/black"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
+        app:layout_constraintTop_toTopOf="@+id/bottMenuGuideline" />
 
-    <Button
-        android:id="@+id/btnExit"
-        style="@style/customBtnStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/exit"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnProfile" />
-
-    <TextView
-        android:id="@+id/tvDifficulty"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottMenuGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/difficulty"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
 
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvDifficultyVal"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnExit"
-        app:layout_constraintVertical_bias="0.8" />
 
-    <TextView
-        android:id="@+id/tvDifficultyVal"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topMenuGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/value"
-        android:layout_margin="6dp"
-
-        app:layout_constraintBottom_toBottomOf="@+id/tvDifficulty"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvDifficulty"
-        app:layout_constraintTop_toTopOf="@+id/tvDifficulty" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

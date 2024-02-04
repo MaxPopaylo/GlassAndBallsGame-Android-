@@ -1,15 +1,11 @@
 package com.example.randomglassgame.adapters
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.randomglassgame.R
-import com.example.randomglassgame.databinding.ItemGlassBinding
+import com.example.randomglassgame.databinding.ItemGlassForGameBinding
 import com.example.randomglassgame.entity.Glass
 import com.example.randomglassgame.entity.Settings
 import java.util.Collections
@@ -24,22 +20,21 @@ class GlassAdapter(
     private val settings: Settings
 ) : RecyclerView.Adapter<GlassAdapter.GlassViewHolder>(), View.OnClickListener {
 
+    class GlassViewHolder (val binding: ItemGlassForGameBinding) : RecyclerView.ViewHolder( binding.root )
+
     var array: List<Glass> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()
         }
-
     var isClicked = false
-
-    class GlassViewHolder (val binding: ItemGlassBinding) : RecyclerView.ViewHolder( binding.root )
 
     override fun getItemCount(): Int = array.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GlassViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemGlassBinding.inflate(inflater, parent, false)
+        val binding = ItemGlassForGameBinding.inflate(inflater, parent, false)
 
         binding.root.setOnClickListener(this)
 
@@ -62,11 +57,15 @@ class GlassAdapter(
         notifyItemMoved(oldIndex, newIndex)
     }
 
-    fun markGlass(glass: Glass, imgResource: Int) {
+    fun markGlass(glass: Glass, imgColor: Int, backgroundRes: Int?) {
         val index = array.indexOf(glass)
         if(index != -1) {
             val holder = recyclerView.findViewHolderForAdapterPosition(index) as GlassViewHolder
-            holder.binding.ivGlass.setImageResource(imgResource)
+
+            holder.binding.ivGlass.setColorFilter(imgColor)
+            backgroundRes?.let {holder.binding.ivGlass.setBackgroundResource(it)}
+                ?: holder.binding.ivGlass.setBackgroundColor(0)
+
         }
     }
 

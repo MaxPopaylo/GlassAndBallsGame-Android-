@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentHome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <include
+        layout="@layout/background"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <ImageView
+        android:id="@+id/ivSkins"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/iv_background"
+        android:padding="12dp"
+        android:src="@drawable/ic_beer_glass"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintDimensionRatio="H, 1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llMaxScore"
+        app:layout_constraintWidth_percent="0.3" />
+
+    <TextView
+        android:id="@+id/textView5"
+        style="@style/textStyle"
+        android:textStyle="bold|italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tap to screen.."
+        app:layout_constraintBottom_toTopOf="@+id/bottomGuidline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivSkins" />
+
+
+    <LinearLayout
+        android:id="@+id/llMaxScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/button_background"
+        android:orientation="horizontal"
+
+        android:paddingStart="24dp"
+        android:paddingTop="9dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="9dp"
+        app:layout_constraintBottom_toTopOf="@+id/ivSkins"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/topGuideline"
+
+        >
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+
+            android:layout_gravity="center"
+            android:src="@drawable/ic_cup" />
+
+        <TextView
+            android:id="@+id/tvMaxScoreVal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+            android:layout_marginStart="6dp"
+            android:text="@string/zero"
+            style="@style/textStyle"
+            />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomGuidline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

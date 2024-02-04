@@ -1,28 +1,32 @@
 package com.example.randomglassgame.services
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
+import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentManager
 import com.example.randomglassgame.R
 import com.example.randomglassgame.adapters.GlassAdapter
-import com.example.randomglassgame.databinding.ToastLostMessageBinding
-import com.example.randomglassgame.databinding.ToastWinMessageBinding
+import com.example.randomglassgame.databinding.FragmentWinToastBinding
 import com.example.randomglassgame.entity.Difficulty
 import com.example.randomglassgame.entity.GameInfo
 import com.example.randomglassgame.entity.Glass
 import com.example.randomglassgame.entity.Settings
+import com.example.randomglassgame.fragments.LoseDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.zip.Inflater
 import kotlin.properties.Delegates
+import kotlin.random.Random
 
 class GameService(
     val settings: Settings,
-    val adapter: GlassAdapter,
-    val info: GameInfo
+    val adapter: GlassAdapter
 ) {
 
     private lateinit var array: List<Glass>
@@ -37,23 +41,23 @@ class GameService(
         when(settings.difficulty) {
             Difficulty.EASY -> {
                 glassCount = 3
-                shuffleDelay = 2000L
+                shuffleDelay = 1500L
                 shuffleCount = 2
-                scoreMultipleRatio = 10
+                scoreMultipleRatio = 1
                 timerMaxDelay = 10
             }
             Difficulty.NORMAL -> {
                 glassCount = 6
-                shuffleDelay = 1500L
+                shuffleDelay = 1000L
                 shuffleCount = 4
-                scoreMultipleRatio = 20
+                scoreMultipleRatio = 2
                 timerMaxDelay = 8
             }
             Difficulty.HARD -> {
                 glassCount = 9
-                shuffleDelay = 1000L
+                shuffleDelay = 500L
                 shuffleCount = 6
-                scoreMultipleRatio = 30
+                scoreMultipleRatio = 3
                 timerMaxDelay = 6
             }
         }
@@ -73,31 +77,41 @@ class GameService(
         setCorrectGlass()
     }
 
+    @SuppressLint("ResourceAsColor")
     suspend fun markCorrectGlass() {
-        var isGray = false
-        var imgResource: Int
+        var isMarked = false
+        var imgColor: Int
+        var imgRes: Int?
+
         for (i in (0..5)) {
 
-            imgResource = if (isGray) {
-                settings.skin.img
+            if (isMarked) {
+                imgColor = Color.BLACK
+                imgRes = null
             } else {
-                settings.skin.img_gray
+                imgColor = Color.GRAY
+                imgRes = R.drawable.iv_background
             }
 
-            adapter.markGlass(correctGlass, imgResource)
-            isGray = !isGray
+            adapter.markGlass(correctGlass, imgColor, imgRes)
+            isMarked = !isMarked
 
             if(i != 5) delay(300L)
         }
     }
 
     suspend fun shuffleItems() {
-        var oldIndex = array.indexOf(correctGlass)
+        val n = array.indexOf(correctGlass)
+        val range = 1
+
+        var oldIndex: Int
+        var newIndex: Int
 
         for (i in 0..shuffleCount) {
-            val newIndex = (array.indices).random()
+            oldIndex =
+                Random.nextInt((n - range).coerceAtLeast(0), (n + range + 1).coerceAtMost(adapter.array.size))
+            newIndex = (array.indices).random()
             adapter.swapItems(oldIndex, newIndex)
-            oldIndex = newIndex
 
             if (i != shuffleCount)  delay(shuffleDelay)
         }
@@ -107,31 +121,61 @@ class GameService(
         return correctGlass.id == glass.id
     }
 
-    suspend fun createToast(isWin: Boolean, layoutInflater: LayoutInflater, context: Context) {
-        val v = if (isWin) ToastWinMessageBinding.inflate(layoutInflater).root
-        else ToastLostMessageBinding.inflate(layoutInflater).root
 
-        Toast(context).apply {
-            duration = Toast.LENGTH_SHORT
-            view = v
-            show()
-        }
-        delay(2100L)
-    }
+    fun updateInfo(info: GameInfo): GameInfo {
 
-    fun addScore(): Int {
-        val score = info.score + (1 * scoreMultipleRatio)
+        val score = info.score + (10 * scoreMultipleRatio)
+        val coins = info.coins + (1 * scoreMultipleRatio)
+
         info.score = score
+        info.coins = coins
 
-        return score
+        return info
+    }
+
+    suspend fun showWinToasts(context: Context, layoutInflater: LayoutInflater) {
+        val binding = FragmentWinToastBinding.inflate(layoutInflater)
+
+        Toast(context)
+            .apply {
+                setGravity(Gravity.CENTER_VERTICAL, -100, -500)
+                duration = Toast.LENGTH_SHORT
+                view = binding.root
+            }.show()
+
+        CoroutineScope(Dispatchers.Main).launch {
+
+            with(binding) {
+                tvScoreValue.text = "${10 * scoreMultipleRatio}"
+                tvCoinsValue.text = "${1 * scoreMultipleRatio}"
+
+                llScoreWinToast.startAnimation(AnimationUtils.loadAnimation(context, R.anim.upping_anim))
+                delay(200L)
+                llCoinsWinToast.isVisible = true
+                llCoinsWinToast.startAnimation(AnimationUtils.loadAnimation(context, R.anim.upping_anim))
+
+                delay(700L)
+
+                llScoreWinToast.startAnimation(AnimationUtils.loadAnimation(context, R.anim.falling_anim))
+                delay(200L)
+                llCoinsWinToast.startAnimation(AnimationUtils.loadAnimation(context, R.anim.falling_anim))
+            }
+
+        }
+        delay(1000L)
+    }
+
+    fun createLoseDialog(info: GameInfo, manager: FragmentManager) {
+        val dialog = LoseDialogFragment.newInstance(info)
+        dialog.show(manager, "dialog")
     }
 
 
-    fun changeGameSettings() {
+    fun changeGameSettings(info: GameInfo) {
         if (info.score > 100) {
             glassCount += if(glassCount < 9) 1 else 0
-            shuffleDelay -= 100L
-            shuffleCount += 1
+            shuffleDelay -= if (shuffleDelay > 100) 100L else 0
+            shuffleCount += if (shuffleCount < 15) 1 else 0
             timerMaxDelay -= 1
         }
     }

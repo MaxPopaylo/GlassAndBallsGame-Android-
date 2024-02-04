@@ -9,20 +9,19 @@ import kotlinx.parcelize.Parcelize
 class Skin(
     var name: String,
     var img: Int,
-    var img_gray: Int
+    var cost: Int,
+    var minScore: Int,
+    var isUnlock: Boolean
 ) : Parcelable {
 
-    constructor() : this("", -1, -1)
-
-    @IgnoredOnParcel
-    val list = listOf(DEFAULT, EMPTY_GLASS, WINE_GLASS, CLEAR_GLASS, BEAR_GLASS)
-
     companion object {
-        private val DEFAULT = Skin("Default", R.drawable.ic_glass, R.drawable.ic_glass_gray)
-        private val EMPTY_GLASS = Skin("Empty Glass", R.drawable.ic_empty_glass, R.drawable.ic_empty_glass_gray)
-        private val WINE_GLASS = Skin("Wine Glass", R.drawable.ic_wine_glass, R.drawable.ic_wine_glass_gray)
-        private val CLEAR_GLASS = Skin("Clear Glass", R.drawable.ic_clear_glass, R.drawable.ic_clear_glass_gray)
-        private val BEAR_GLASS = Skin("Beer Glass", R.drawable.ic_beer_glass, R.drawable.ic_beer_glass_gray)
+        val DEFAULT = Skin("Default", R.drawable.ic_beer_glass, 0, 0, true)
+        private val EMPTY_GLASS = Skin("Empty", R.drawable.ic_empty_glass, 20, 60, true)
+        private val CLEAR_GLASS = Skin("Clear", R.drawable.ic_clear_glass, 0, 150, false)
+        private val WINE_GLASS = Skin("Wine", R.drawable.ic_wine_glass, 75, 200, false)
+        private val BEAR_GLASS = Skin("Beer", R.drawable.ic_beer_glass, 45, 125, false)
+
+        @JvmStatic val LIST = listOf(DEFAULT, EMPTY_GLASS, WINE_GLASS, CLEAR_GLASS, BEAR_GLASS)
     }
 
     override fun toString(): String {

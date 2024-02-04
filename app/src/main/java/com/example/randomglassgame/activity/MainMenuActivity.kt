@@ -1,89 +1,153 @@
 package com.example.randomglassgame.activity
 
-import android.content.Intent
-import android.os.Build
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.annotation.RequiresApi
-import com.example.randomglassgame.contracts.PlayActivityContract
-import com.example.randomglassgame.contracts.SettingsActivityContract
+import android.os.Parcelable
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LifecycleOwner
+import com.example.randomglassgame.R
+import com.example.randomglassgame.contracts.HasBalanceInfo
+import com.example.randomglassgame.contracts.ResultListener
+import com.example.randomglassgame.contracts.Router
 import com.example.randomglassgame.databinding.ActivityMainMenuBinding
-import com.example.randomglassgame.entity.Difficulty
 import com.example.randomglassgame.entity.Profile
 import com.example.randomglassgame.entity.Settings
-import com.example.randomglassgame.entity.Skin
+import com.example.randomglassgame.fragments.GameFragment
+import com.example.randomglassgame.fragments.HomeFragment
+import com.example.randomglassgame.fragments.InventoryFragment
+import com.example.randomglassgame.fragments.ShopFragment
+import com.example.randomglassgame.fragments.StartFragment
 
-class MainMenuActivity : BasicActivity() {
+class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo {
 
     private lateinit var binding: ActivityMainMenuBinding
 
-    private lateinit var profile: Profile
     private lateinit var settings: Settings
+    private lateinit var profile: Profile
 
-    private val changeSettingsLauncher = registerForActivityResult(SettingsActivityContract()) { result ->
-        if (result != null) {
-            settings =  result
-            changeData()
+    private val currentFragment: Fragment
+        get() = supportFragmentManager.findFragmentById(R.id.fragmentContainer)!!
+
+    private val fragmentListener = object  : FragmentManager.FragmentLifecycleCallbacks() {
+        override fun onFragmentViewCreated(fm: FragmentManager, f: Fragment, v: View, savedInstanceState: Bundle?) {
+            super.onFragmentViewCreated(fm, f, v, savedInstanceState)
+            updateMenu()
         }
     }
 
-    private val createGame = registerForActivityResult(PlayActivityContract()) { result ->
-        if (result != null) {
-            profile.currentScore = result.score
-            profile.maxScore =
-                if(result.score > profile.maxScore) result.score else profile.maxScore
-            changeData()
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainMenuBinding.inflate(layoutInflater). also { setContentView(it.root) }
 
-        profile = savedInstanceState?.getParcelable(Profile.EXTRA_PROFILE, Profile::class.java)
-            ?: Profile(Build.MODEL.toString(), 0, 0)
-
         settings = savedInstanceState?.getParcelable(Settings.EXTRA_SETTINGS, Settings::class.java)
-            ?: Settings(Difficulty.NORMAL, false, Skin().list[0])
+            ?: Settings.DEFAULT_STATE
+
+        profile = savedInstanceState?.getParcelable(Profile.EXTRA_PROFILE, Profile::class.java)
+            ?: Profile.DEFAULT_STATE
+
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragmentContainer, StartFragment.newInstance(profile, settings))
+                .commit()
+        }
+
+        supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, false)
 
         with(binding) {
-            btnExit.setOnClickListener { exitOnClickListener() }
-            btnProfile.setOnClickListener  { profileOnClickListener() }
-            btnSettings.setOnClickListener { settingsOnClickListener() }
-            btnPlay.setOnClickListener { playOnClickListener() }
-        }
-        changeData()
-    }
+            menu.setOnItemSelectedListener {
+                when(it) {
+                    R.id.home -> showHomeScreen(profile, settings)
+                    R.id.shop -> showShopScreen(profile)
+                    R.id.inventory -> showInventoryScreen(profile, settings)
+                }
+            }
 
-    private fun changeData() {
-        binding.tvScoreVal.text = profile.currentScore.toString()
-        binding.tvDifficultyVal.text = settings.difficulty.toString()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelable(Profile.EXTRA_PROFILE, profile)
-        outState.putParcelable(Settings.EXTRA_SETTINGS, settings)
-    }
-
-    private fun settingsOnClickListener() {
-        changeSettingsLauncher.launch(settings)
-    }
-
-    private fun playOnClickListener() {
-        createGame.launch(settings)
-    }
-
-    private fun exitOnClickListener() {
-        finish()
-    }
-
-    private fun profileOnClickListener() {
-        Intent(applicationContext, ProfileActivity::class.java).apply {
-            putExtra(Profile.EXTRA_PROFILE, profile)
-            startActivity(this)
+            tvBalance.text = profile.balance.toString()
+            ivBackToStart.setOnClickListener {
+                backToStartScreen()
+            }
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
+    }
+
+    override fun showHomeScreen(profile: Profile, settings: Settings) {
+        launchFragment(HomeFragment.newInstance(profile, settings))
+    }
+
+    override fun showInventoryScreen(profile: Profile, settings: Settings) {
+        launchFragment(InventoryFragment.newInstance(profile, settings))
+    }
+
+    override fun showShopScreen(profile: Profile) {
+        launchFragment(ShopFragment.newInstance(profile))
+    }
+
+    override fun showGameScreen(settings: Settings) {
+        launchFragment(GameFragment.newInstance(settings))
+    }
+
+    override fun backToStartScreen() {
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    }
+
+    override fun goBack() {
+        onBackPressedDispatcher.onBackPressed()
+    }
+
+    override fun <T : Parcelable> publishResult(result: T) {
+        supportFragmentManager.setFragmentResult(result.javaClass.name, bundleOf(KEY_RESULT to result))
+    }
+
+    @SuppressLint("NewApi")
+    override fun <T : Parcelable> listenResult( clazz: Class<T>, owner: LifecycleOwner, listener: ResultListener<T>) {
+        supportFragmentManager.setFragmentResultListener(clazz.name, owner) { _, bundle ->
+            listener.invoke(bundle.getParcelable(KEY_RESULT, clazz)!!)
+        }
+    }
+
+    fun updateMenu() {
+
+        val currentItem = when(currentFragment) {
+            is HomeFragment -> R.id.home
+            is InventoryFragment -> R.id.inventory
+            is ShopFragment -> R.id.shop
+            else -> {null}
+        }
+
+        if (currentItem == null) {
+            binding.menu.isVisible = false
+            binding.topMenu.isVisible = false
+        } else {
+            binding.topMenu.isVisible = true
+            binding.menu.isVisible = true
+            binding.menu.setItemSelected(currentItem)
+        }
+
+    }
+
+    override fun updateBalance() {
+        binding.tvBalance.text = profile.balance.toString()
+    }
+
+    private fun launchFragment(fragment: Fragment) = supportFragmentManager
+        .beginTransaction()
+        .addToBackStack(null)
+        .replace(R.id.fragmentContainer, fragment)
+        .commit()
+
+    companion object {
+        @JvmStatic private val KEY_RESULT = "RESULT"
+    }
 
 }

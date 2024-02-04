@@ -1,5 +1,5 @@
 package com.example.randomglassgame.entity
 
-class Glass (
+data class Glass (
     val id: Int,
 )

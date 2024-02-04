@@ -13,9 +13,24 @@
     <string name="currentscore">CurrentScore:</string>
     <string name="back">Back</string>
     <string name="difficulty">Difficulty:</string>
-    <string name="glass">Glass:</string>
+    <string name="glass">Glass</string>
     <string name="save">Save</string>
     <string name="start">Start</string>
     <string name="pick_a_correct_glass">Pick a correct glass...</string>
     <string name="keep_an_eye_on_the_glasses">Keep an eye on the glasses..</string>
+    <string name="ampersand">&amp;</string>
+    <string name="balls">Balls</string>
+    <string name="glass_2dots">Glass</string>
+    <string name="shop">Shop</string>
+    <string name="inventory">Inventory</string>
+    <string name="stats">Stats</string>
+    <string name="score_upper">SCORE</string>
+    <string name="coins_upper">COINS</string>
+    <string name="settings_upper">SETTINGS</string>
+    <string name="confirm_upper">CONFIRM</string>
+    <string name="options_upper">OPTIONS</string>
+    <string name="difficulty_upper">DIFFICULTY</string>
+    <string name="language_upper">LANGUAGE</string>
+    <string name="sounds_upper">SOUNDS</string>
+    <string name="music_upper">MUSIC</string>
 </resources>
