@@ -50,8 +50,7 @@ class HomeFragment: Fragment() {
         with(binding) {
             ivSkins.setImageResource(settings.skin.img)
             ivSkins.setOnClickListener {
-                //TODO make inventory fragment
-                Toast.makeText(context, "Skins", Toast.LENGTH_SHORT).show()
+                router().showInventoryScreen(profile, settings)
             }
 
             fragmentHome.setOnClickListener {
