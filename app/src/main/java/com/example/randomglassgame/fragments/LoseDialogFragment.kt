@@ -1,26 +1,20 @@
 package com.example.randomglassgame.fragments
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
-import com.example.randomglassgame.R
 import com.example.randomglassgame.contracts.router
 import com.example.randomglassgame.databinding.FragmentLoseDialogBinding
 import com.example.randomglassgame.entity.GameInfo
 import com.example.randomglassgame.entity.Settings
-import java.util.zip.Inflater
 
 class LoseDialogFragment : DialogFragment() {
 

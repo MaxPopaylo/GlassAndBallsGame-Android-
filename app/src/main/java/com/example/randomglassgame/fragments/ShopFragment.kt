@@ -9,13 +9,11 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.randomglassgame.adapters.InventoryAdapter
 import com.example.randomglassgame.adapters.ShopAdapter
 import com.example.randomglassgame.contracts.balanceUpdater
 import com.example.randomglassgame.contracts.router
 import com.example.randomglassgame.databinding.FragmentShopBinding
 import com.example.randomglassgame.entity.Profile
-import com.example.randomglassgame.entity.Settings
 import com.example.randomglassgame.entity.Skin
 
 class ShopFragment : Fragment() {

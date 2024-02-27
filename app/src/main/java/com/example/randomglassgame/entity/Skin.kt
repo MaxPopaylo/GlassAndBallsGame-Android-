@@ -2,7 +2,6 @@ package com.example.randomglassgame.entity
 
 import android.os.Parcelable
 import com.example.randomglassgame.R
-import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

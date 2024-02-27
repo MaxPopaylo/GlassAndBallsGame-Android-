@@ -1,18 +1,14 @@
 package com.example.randomglassgame.adapters
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.randomglassgame.R
 import com.example.randomglassgame.contracts.HasBalanceInfo
-import com.example.randomglassgame.databinding.ItemGlassForInventoryBinding
 import com.example.randomglassgame.databinding.ItemGlassForShopBinding
 import com.example.randomglassgame.entity.Profile
-import com.example.randomglassgame.entity.Settings
 import com.example.randomglassgame.entity.Skin
 
 class ShopAdapter(
