@@ -14,7 +14,7 @@ class InventoryAdapter(
     private var settings: Settings,
     private val recyclerView: RecyclerView,
     private var array: List<Skin>,
-    private var context: Context
+    context: Context
 ): RecyclerView.Adapter<InventoryAdapter.InventoryViewHolder>(){
 
     class InventoryViewHolder (var binding: ItemGlassForInventoryBinding) : RecyclerView.ViewHolder ( binding.root )

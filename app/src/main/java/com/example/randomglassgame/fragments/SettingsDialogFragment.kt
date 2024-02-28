@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.CompoundButton
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import com.example.randomglassgame.R
@@ -24,7 +22,6 @@ import com.example.randomglassgame.databinding.FragmentSettingsDialogBinding
 import com.example.randomglassgame.entity.Difficulty
 import com.example.randomglassgame.entity.Language
 import com.example.randomglassgame.entity.Settings
-import com.example.randomglassgame.services.SoundService
 
 class SettingsDialogFragment : DialogFragment() {
 
@@ -93,7 +90,7 @@ class SettingsDialogFragment : DialogFragment() {
         dialog?.dismiss()
     }
 
-    fun muteOrUnMuteSounds(isNotMute: Boolean) {
+    private fun muteOrUnMuteSounds(isNotMute: Boolean) {
        (context?.getSystemService(Context.AUDIO_SERVICE) as AudioManager)
            .apply {
                setStreamMute(AudioManager.STREAM_SYSTEM, isNotMute)

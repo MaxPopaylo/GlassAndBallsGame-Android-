@@ -52,7 +52,8 @@
                 android:layout_height="match_parent"
 
                 android:layout_gravity="center"
-                android:src="@drawable/ic_leaderboard" />
+                android:src="@drawable/ic_leaderboard"
+                android:contentDescription="@string/achieves" />
 
             <TextView
                 style="@style/buttonTextStyle"
@@ -60,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="6dp"
-                android:text="Achieves" />
+                android:text="@string/achieves" />
 
         </LinearLayout>
 
@@ -76,7 +77,8 @@
             app:layout_constraintDimensionRatio="W, 1"
             app:layout_constraintEnd_toStartOf="@+id/llBalanceInfo"
             app:layout_constraintStart_toEndOf="@+id/llProfileInfo"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/home" />
 
 
         <LinearLayout
@@ -104,7 +106,8 @@
                 android:layout_gravity="center"
                 android:padding="1dp"
 
-                android:src="@drawable/ic_money" />
+                android:src="@drawable/ic_money"
+                android:contentDescription="@string/coins_upper" />
 
             <TextView
                 android:id="@+id/tvBalance"

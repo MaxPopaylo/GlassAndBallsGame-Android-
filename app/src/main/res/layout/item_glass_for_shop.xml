@@ -46,7 +46,8 @@
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:src="@drawable/ic_money"
-                app:tint="@color/black" />
+                app:tint="@color/black"
+                android:contentDescription="@string/coins_upper" />
 
             <TextView
                 android:id="@+id/tvCost"
@@ -79,7 +80,8 @@
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:src="@drawable/ic_cup"
-                app:tint="@color/black" />
+                app:tint="@color/black"
+                android:contentDescription="@string/maxscore" />
 
             <TextView
                 android:id="@+id/tvMinScore"

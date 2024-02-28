@@ -1,8 +1,6 @@
 package com.example.randomglassgame.activity
 
 import android.annotation.SuppressLint
-import android.app.NotificationManager
-import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View

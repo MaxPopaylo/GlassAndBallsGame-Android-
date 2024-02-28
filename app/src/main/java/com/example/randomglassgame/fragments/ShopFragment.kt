@@ -31,7 +31,7 @@ class ShopFragment : Fragment() {
             ?: getProfile()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentShopBinding.inflate(inflater, container, false)
 
         adapter = ShopAdapter(profile, Skin.LIST, balanceUpdater(), requireContext())

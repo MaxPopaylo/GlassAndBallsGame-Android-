@@ -25,7 +25,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llMaxScore"
-        app:layout_constraintWidth_percent="0.3" />
+        app:layout_constraintWidth_percent="0.3"
+        android:contentDescription="@string/inventory" />
 
     <TextView
         android:id="@+id/textView5"
@@ -33,7 +34,7 @@
         android:textStyle="bold|italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tap to screen.."
+        android:text="@string/tap_to_screen"
         app:layout_constraintBottom_toTopOf="@+id/bottomGuidline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -67,7 +68,8 @@
             android:layout_height="match_parent"
 
             android:layout_gravity="center"
-            android:src="@drawable/ic_cup" />
+            android:src="@drawable/ic_cup"
+            android:contentDescription="@string/maxscore" />
 
         <TextView
             android:id="@+id/tvMaxScoreVal"

@@ -15,7 +15,6 @@ import com.example.randomglassgame.databinding.FragmentInventoryBinding
 import com.example.randomglassgame.entity.Profile
 import com.example.randomglassgame.entity.Settings
 import com.example.randomglassgame.entity.Skin
-import com.example.randomglassgame.services.SoundService
 
 class InventoryFragment : Fragment() {
 
@@ -36,7 +35,7 @@ class InventoryFragment : Fragment() {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding = FragmentInventoryBinding.inflate(inflater, container, false)
 
         adapter = InventoryAdapter(settings, binding.rvInventory, profile.inventory, requireContext())
