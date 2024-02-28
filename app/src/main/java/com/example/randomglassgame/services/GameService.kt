@@ -3,6 +3,8 @@ package com.example.randomglassgame.services
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.media.MediaPlayer
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.animation.AnimationUtils
@@ -36,6 +38,10 @@ class GameService(
     private var shuffleCount by Delegates.notNull<Int>()
     private var scoreMultipleRatio by Delegates.notNull<Int>()
     private var timerMaxDelay by Delegates.notNull<Int>()
+
+    private var roundsCount = 0
+
+    var isGameWasStop = false
 
     fun configureGame() {
         when(settings.difficulty) {
@@ -77,44 +83,36 @@ class GameService(
         setCorrectGlass()
     }
 
-    @SuppressLint("ResourceAsColor")
-    suspend fun markCorrectGlass() {
-        var isMarked = false
-        var imgColor: Int
-        var imgRes: Int?
 
-        for (i in (0..5)) {
-
-            if (isMarked) {
-                imgColor = Color.BLACK
-                imgRes = null
-            } else {
-                imgColor = Color.GRAY
-                imgRes = R.drawable.iv_background
-            }
-
-            adapter.markGlass(correctGlass, imgColor, imgRes)
-            isMarked = !isMarked
-
-            if(i != 5) delay(300L)
-        }
+    suspend fun markCorrectGlass(context: Context) {
+        adapter.markGlass(correctGlass, context)
     }
 
     suspend fun shuffleItems() {
-        val n = array.indexOf(correctGlass)
-        val range = 1
-
-        var oldIndex: Int
-        var newIndex: Int
+        var firstIndex: Int
+        var secondIndex: Int
 
         for (i in 0..shuffleCount) {
-            oldIndex =
-                Random.nextInt((n - range).coerceAtLeast(0), (n + range + 1).coerceAtMost(adapter.array.size))
-            newIndex = (array.indices).random()
-            adapter.swapItems(oldIndex, newIndex)
+            firstIndex = findRandomIndex(null)
+            secondIndex = findRandomIndex(firstIndex)
+            adapter.swapItems(firstIndex, secondIndex)
 
             if (i != shuffleCount)  delay(shuffleDelay)
+            if (isGameWasStop) break
         }
+    }
+
+    private fun findRandomIndex(firstIndex: Int?): Int {
+        val correctNumber= array.indexOf(correctGlass)
+        val maxNumber = array.size - 1
+        val range = 3
+
+        var randomNumber: Int
+        do {
+            randomNumber = Random.nextInt(correctNumber - range, correctNumber + range + 1).coerceIn(0, maxNumber)
+        } while (firstIndex != null && firstIndex == randomNumber)
+
+        return randomNumber
     }
 
     fun isCorrect(glass: Glass): Boolean{
@@ -135,6 +133,7 @@ class GameService(
 
     suspend fun showWinToasts(context: Context, layoutInflater: LayoutInflater) {
         val binding = FragmentWinToastBinding.inflate(layoutInflater)
+        roundsCount += 1
 
         Toast(context)
             .apply {
@@ -159,6 +158,7 @@ class GameService(
                 llScoreWinToast.startAnimation(AnimationUtils.loadAnimation(context, R.anim.falling_anim))
                 delay(200L)
                 llCoinsWinToast.startAnimation(AnimationUtils.loadAnimation(context, R.anim.falling_anim))
+
             }
 
         }
@@ -171,8 +171,10 @@ class GameService(
     }
 
 
-    fun changeGameSettings(info: GameInfo) {
-        if (info.score > 100) {
+    fun changeGameSettings() {
+        if (roundsCount % 3 == 0 && roundsCount > 0) {
+            Log.d("", roundsCount.toString())
+
             glassCount += if(glassCount < 9) 1 else 0
             shuffleDelay -= if (shuffleDelay > 100) 100L else 0
             shuffleCount += if (shuffleCount < 15) 1 else 0

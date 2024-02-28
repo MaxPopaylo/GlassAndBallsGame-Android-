@@ -1,10 +1,13 @@
 package com.example.randomglassgame.fragments
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +24,7 @@ import com.example.randomglassgame.databinding.FragmentSettingsDialogBinding
 import com.example.randomglassgame.entity.Difficulty
 import com.example.randomglassgame.entity.Language
 import com.example.randomglassgame.entity.Settings
+import com.example.randomglassgame.services.SoundService
 
 class SettingsDialogFragment : DialogFragment() {
 
@@ -39,7 +43,7 @@ class SettingsDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        _binding = FragmentSettingsDialogBinding.inflate(LayoutInflater.from(context))
+        _binding = FragmentSettingsDialogBinding.inflate(LayoutInflater.from(requireContext()))
 
         setupDifficultyAdapter()
         setupLanguageAdapter()
@@ -50,9 +54,11 @@ class SettingsDialogFragment : DialogFragment() {
 
             swSounds.setOnCheckedChangeListener { _, isChecked ->
                 settings.isSoundsOn = isChecked
+                muteOrUnMuteSounds(!isChecked)
             }
             swMusic.setOnCheckedChangeListener { _, isChecked ->
                 settings.isMusicOn = isChecked
+                muteOrUnMuteMusic(!isChecked)
             }
 
             spDifficulty.setSelection(settings.difficulty.ordinal)
@@ -85,6 +91,24 @@ class SettingsDialogFragment : DialogFragment() {
     private fun onConfirmClickListener() {
         router().publishResult(settings)
         dialog?.dismiss()
+    }
+
+    fun muteOrUnMuteSounds(isNotMute: Boolean) {
+       (context?.getSystemService(Context.AUDIO_SERVICE) as AudioManager)
+           .apply {
+               setStreamMute(AudioManager.STREAM_SYSTEM, isNotMute)
+               setStreamMute(AudioManager.STREAM_NOTIFICATION, isNotMute)
+               setStreamMute(AudioManager.STREAM_ALARM, isNotMute)
+               setStreamMute(AudioManager.STREAM_RING, isNotMute)
+               setStreamMute(AudioManager.STREAM_MUSIC, isNotMute)
+           }
+    }
+
+    fun muteOrUnMuteMusic(isNotMute: Boolean) {
+        (context?.getSystemService(Context.AUDIO_SERVICE) as AudioManager)
+            .apply {
+                setStreamMute(AudioManager.STREAM_MUSIC, isNotMute)
+            }
     }
 
     private fun setupDifficultyAdapter() {

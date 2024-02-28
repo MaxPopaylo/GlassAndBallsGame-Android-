@@ -13,6 +13,7 @@ import com.example.randomglassgame.databinding.FragmentHomeBinding
 import com.example.randomglassgame.entity.GameInfo
 import com.example.randomglassgame.entity.Profile
 import com.example.randomglassgame.entity.Settings
+import com.example.randomglassgame.services.SoundService
 
 @SuppressLint("NewApi")
 class HomeFragment: Fragment() {

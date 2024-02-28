@@ -1,15 +1,21 @@
 package com.example.randomglassgame.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
+import com.example.randomglassgame.R
+import com.example.randomglassgame.adapters.GlassAdapter
 import com.example.randomglassgame.contracts.router
 import com.example.randomglassgame.databinding.FragmentStartBinding
+import com.example.randomglassgame.entity.Glass
 import com.example.randomglassgame.entity.Profile
 import com.example.randomglassgame.entity.Settings
+import com.example.randomglassgame.services.SoundService
 
 @SuppressLint("NewApi")
 class StartFragment : Fragment() {
@@ -44,9 +50,11 @@ class StartFragment : Fragment() {
 
     private fun onPlayClickListener() {
         router().showHomeScreen(profile, settings)
+        SoundService.getStartSound(requireContext())
     }
 
     private fun onSettingClickListener() {
+        SoundService.getTapSound(requireContext())
         val dialog = SettingsDialogFragment.newInstance(settings)
         dialog.show(parentFragmentManager, "dialog")
     }

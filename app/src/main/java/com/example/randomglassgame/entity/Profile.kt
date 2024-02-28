@@ -26,7 +26,7 @@ class Profile(
 
     companion object {
         @JvmStatic val EXTRA_PROFILE = "EXTRA_PROFILE"
-        @JvmStatic val DEFAULT_STATE = Profile(300, 150)
+        @JvmStatic val DEFAULT_STATE = Profile(1500, 3000)
     }
 }
 

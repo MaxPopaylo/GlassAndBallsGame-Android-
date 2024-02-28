@@ -1,8 +1,11 @@
 package com.example.randomglassgame.adapters
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.randomglassgame.R
@@ -10,14 +13,18 @@ import com.example.randomglassgame.contracts.HasBalanceInfo
 import com.example.randomglassgame.databinding.ItemGlassForShopBinding
 import com.example.randomglassgame.entity.Profile
 import com.example.randomglassgame.entity.Skin
+import com.example.randomglassgame.services.SoundService
 
 class ShopAdapter(
     private var profile: Profile,
     private var array: List<Skin>,
-    private var balanceInfo: HasBalanceInfo
+    private var balanceInfo: HasBalanceInfo,
+    context: Context
 ): RecyclerView.Adapter<ShopAdapter.ShopViewHolder>() {
 
     class ShopViewHolder (var binding: ItemGlassForShopBinding) : RecyclerView.ViewHolder ( binding.root )
+
+    private val _context = context
 
     override fun getItemCount(): Int = array.size
 
@@ -28,6 +35,7 @@ class ShopAdapter(
         return ShopViewHolder(binding)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ShopViewHolder, position: Int) {
         val skin = array[position]
 
@@ -38,36 +46,78 @@ class ShopAdapter(
             ivSkin.setImageResource(skin.img)
 
             if (!skin.isUnlock) {
-                markToLocked(this@with)
+                if (isCanBuy(skin)) {
+                    markToLockedCanBuy(this@with)
+                } else {
+                    markToLocked(this@with, skin)
+                }
             } else {
                 markToUnlocked(this@with)
             }
 
             llShopItem.setOnClickListener {
-                if (!skin.isUnlock && profile.balance >= skin.cost && profile.maxScore >= skin.minScore) {
+                if (isCanBuy(skin)) {
+                    SoundService.getSuccessSound(_context)
                     profile.balance -= skin.cost
 
                     profile.buySkin(skin)
                     markToUnlocked(this@with)
 
                     balanceInfo.updateBalance()
+                    notifyDataSetChanged()
                 }
             }
         }
 
     }
 
-    private fun markToLocked(binding: ItemGlassForShopBinding) {
+    private fun isCanBuy(skin: Skin): Boolean {
+        return !skin.isUnlock && isCoinsEnough(skin) && isMinScoreEnough(skin)
+    }
+
+    private fun isCoinsEnough(skin: Skin): Boolean {
+        return profile.balance >= skin.cost
+    }
+
+    private fun isMinScoreEnough(skin: Skin): Boolean {
+        return profile.maxScore >= skin.minScore
+    }
+
+    private fun markToLockedCanBuy(binding: ItemGlassForShopBinding) {
+        with(binding) {
+            ivSkin.setColorFilter(Color.BLACK)
+            ivSkin.setBackgroundResource(R.drawable.background_for_items_locked_canbuy)
+            llCost.setBackgroundResource(R.drawable.background_for_items_locked_canbuy)
+            llMinScore.setBackgroundResource(R.drawable.background_for_items_locked_canbuy)
+
+            llCostForBuy.isVisible = true
+        }
+    }
+
+    private fun markToLocked(binding: ItemGlassForShopBinding, skin: Skin) {
         with(binding) {
             ivSkin.setColorFilter(Color.BLACK)
             ivSkin.setBackgroundResource(R.drawable.background_for_items_locked)
-            llCost.setBackgroundResource(R.drawable.background_for_items_locked)
-            llMinScore.setBackgroundResource(R.drawable.background_for_items_locked)
+
+            if (isCoinsEnough(skin)) {
+                llCost.setBackgroundResource(R.drawable.background_for_items_locked_canbuy)
+            } else {
+                llCost.setBackgroundResource(R.drawable.background_for_items_locked)
+            }
+
+            if (isMinScoreEnough(skin)) {
+                llMinScore.setBackgroundResource(R.drawable.background_for_items_locked_canbuy)
+            } else {
+                llMinScore.setBackgroundResource(R.drawable.background_for_items_locked)
+            }
+
+            llCostForBuy.isVisible = true
         }
     }
 
     private fun markToUnlocked(binding: ItemGlassForShopBinding) {
         with(binding) {
+            ivSkin.setColorFilter(Color.TRANSPARENT)
             ivSkin.setBackgroundResource(R.drawable.background_for_items_unseletcted)
             llCost.setBackgroundResource(R.drawable.button_background)
             llMinScore.setBackgroundResource(R.drawable.button_background)

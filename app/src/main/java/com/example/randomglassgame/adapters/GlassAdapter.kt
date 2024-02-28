@@ -1,13 +1,19 @@
 package com.example.randomglassgame.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.media.MediaPlayer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
+import com.example.randomglassgame.R
 import com.example.randomglassgame.databinding.ItemGlassForGameBinding
 import com.example.randomglassgame.entity.Glass
 import com.example.randomglassgame.entity.Settings
+import com.example.randomglassgame.services.SoundService
+import kotlinx.coroutines.delay
 import java.util.Collections
 
 interface GlassActionListener{
@@ -17,7 +23,8 @@ interface GlassActionListener{
 class GlassAdapter(
     private val actionClickListener: GlassActionListener,
     private val recyclerView: RecyclerView,
-    private val settings: Settings
+    private val settings: Settings,
+    context: Context
 ) : RecyclerView.Adapter<GlassAdapter.GlassViewHolder>(), View.OnClickListener {
 
     class GlassViewHolder (val binding: ItemGlassForGameBinding) : RecyclerView.ViewHolder( binding.root )
@@ -29,6 +36,7 @@ class GlassAdapter(
             notifyDataSetChanged()
         }
     var isClicked = false
+    private val _context = context
 
     override fun getItemCount(): Int = array.size
 
@@ -52,21 +60,19 @@ class GlassAdapter(
         }
     }
 
+    suspend fun markGlass(glass: Glass, context: Context) {
+        val index = array.indexOf(glass)
+        val holder = recyclerView.findViewHolderForAdapterPosition(index) as GlassViewHolder
+
+        holder.binding.ivGlass.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shaking_anim))
+        SoundService.getShakeSound(_context)
+        delay(1200L)
+    }
+
     fun swapItems(oldIndex: Int, newIndex: Int) {
         Collections.swap(array, oldIndex, newIndex)
         notifyItemMoved(oldIndex, newIndex)
-    }
-
-    fun markGlass(glass: Glass, imgColor: Int, backgroundRes: Int?) {
-        val index = array.indexOf(glass)
-        if(index != -1) {
-            val holder = recyclerView.findViewHolderForAdapterPosition(index) as GlassViewHolder
-
-            holder.binding.ivGlass.setColorFilter(imgColor)
-            backgroundRes?.let {holder.binding.ivGlass.setBackgroundResource(it)}
-                ?: holder.binding.ivGlass.setBackgroundColor(0)
-
-        }
+        SoundService.getMoveSound(_context)
     }
 
 }

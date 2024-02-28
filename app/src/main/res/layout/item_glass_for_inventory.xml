@@ -18,7 +18,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:contentDescription="@string/glass"
-            android:src="@drawable/ic_glass"
+            android:src="@mipmap/ic_default_glass"
             android:padding="16dp"
             android:background="@drawable/background_for_items_unseletcted"
             />

@@ -14,8 +14,9 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:contentDescription="@string/glass"
-        android:src="@drawable/ic_glass"
-        android:padding="6dp" />
+        android:src="@mipmap/ic_default_glass"
+        android:padding="6dp"
+        android:rotation="180"/>
 
 
 </LinearLayout>

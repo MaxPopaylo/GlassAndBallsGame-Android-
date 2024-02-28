@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="6dp"
+    android:padding="3dp"
     android:id="@+id/llShopItem">
 
     <ImageView
@@ -15,7 +15,7 @@
         android:background="@drawable/background_for_items_unseletcted"
         android:contentDescription="@string/glass"
         android:padding="16dp"
-        android:src="@drawable/ic_glass"
+        android:src="@mipmap/ic_default_glass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

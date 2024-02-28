@@ -1,6 +1,7 @@
 package com.example.randomglassgame.fragments
 
 import android.annotation.SuppressLint
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.randomglassgame.R
 import com.example.randomglassgame.adapters.GlassActionListener
 import com.example.randomglassgame.adapters.GlassAdapter
 import com.example.randomglassgame.contracts.router
@@ -17,6 +19,7 @@ import com.example.randomglassgame.entity.GameInfo
 import com.example.randomglassgame.entity.Glass
 import com.example.randomglassgame.entity.Settings
 import com.example.randomglassgame.services.GameService
+import com.example.randomglassgame.services.SoundService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -50,7 +53,7 @@ class GameFragment: Fragment() {
             override fun onGlassPick(glass: Glass) {
                 pickGlass(glass)
             }
-        }, binding.rvPlayBoard, settings)
+        }, binding.rvPlayBoard, settings, requireContext())
 
         service = GameService(settings, adapter)
             .apply {
@@ -79,7 +82,7 @@ class GameFragment: Fragment() {
         }
 
         CoroutineScope(Dispatchers.Main).launch {
-            service.markCorrectGlass()
+            service.markCorrectGlass(requireContext())
             service.shuffleItems()
 
             binding.keepEyeInfo.isVisible = false
@@ -94,15 +97,16 @@ class GameFragment: Fragment() {
                 updateInfo()
                 binding.pickGlassInfo.isVisible = false
 
-                service.changeGameSettings(info)
+                service.changeGameSettings()
                 service.gameInit()
 
                 service.showWinToasts(requireContext(), layoutInflater)
 
                 startGame()
             } else {
-                service.markCorrectGlass()
+                service.markCorrectGlass(requireContext())
                 service.createLoseDialog(info, parentFragmentManager)
+                SoundService.getAlertSound(requireContext())
             }
         }
     }
@@ -115,6 +119,7 @@ class GameFragment: Fragment() {
     }
 
     private fun onBackClickListener() {
+        service.isGameWasStop = true
         router().publishResult(info)
         router().goBack()
     }
