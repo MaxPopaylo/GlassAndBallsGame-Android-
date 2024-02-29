@@ -1,7 +1,6 @@
 package com.example.randomglassgame.adapters
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,21 +8,21 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.randomglassgame.R
 import com.example.randomglassgame.contracts.HasBalanceInfo
+import com.example.randomglassgame.contracts.HasSounds
 import com.example.randomglassgame.databinding.ItemGlassForShopBinding
 import com.example.randomglassgame.entity.Profile
 import com.example.randomglassgame.entity.Skin
-import com.example.randomglassgame.services.SoundService
+import com.example.randomglassgame.services.Sounds
 
 class ShopAdapter(
     private var profile: Profile,
     private var array: List<Skin>,
     private var balanceInfo: HasBalanceInfo,
-    context: Context
+    private var soundManager: HasSounds
 ): RecyclerView.Adapter<ShopAdapter.ShopViewHolder>() {
 
     class ShopViewHolder (var binding: ItemGlassForShopBinding) : RecyclerView.ViewHolder ( binding.root )
 
-    private val _context = context
 
     override fun getItemCount(): Int = array.size
 
@@ -56,7 +55,7 @@ class ShopAdapter(
 
             llShopItem.setOnClickListener {
                 if (isCanBuy(skin)) {
-                    SoundService.getSuccessSound(_context)
+                    soundManager.playSound(Sounds.SUCCESS_SOUND)
                     profile.balance -= skin.cost
 
                     profile.buySkin(skin)

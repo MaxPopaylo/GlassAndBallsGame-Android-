@@ -1,26 +1,25 @@
 package com.example.randomglassgame.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.randomglassgame.R
+import com.example.randomglassgame.contracts.HasSounds
 import com.example.randomglassgame.databinding.ItemGlassForInventoryBinding
 import com.example.randomglassgame.entity.Settings
 import com.example.randomglassgame.entity.Skin
-import com.example.randomglassgame.services.SoundService
+import com.example.randomglassgame.services.Sounds
 
 class InventoryAdapter(
     private var settings: Settings,
     private val recyclerView: RecyclerView,
     private var array: List<Skin>,
-    context: Context
+    private val soundManager: HasSounds
 ): RecyclerView.Adapter<InventoryAdapter.InventoryViewHolder>(){
 
     class InventoryViewHolder (var binding: ItemGlassForInventoryBinding) : RecyclerView.ViewHolder ( binding.root )
 
     private lateinit var selectedSkin: Skin
-    private val _context = context
 
     override fun getItemCount(): Int = array.size
 
@@ -45,7 +44,7 @@ class InventoryAdapter(
             }
 
             llInventoryItem.setOnClickListener {
-                SoundService.getChooseSound(_context)
+                soundManager.playSound(Sounds.CHOOSE_SOUND)
                 settings.skin = skin
 
                 (recyclerView.findViewHolderForAdapterPosition(array.indexOf(selectedSkin)) as InventoryViewHolder)

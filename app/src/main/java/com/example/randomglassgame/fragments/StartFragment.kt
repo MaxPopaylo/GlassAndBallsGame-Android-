@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.randomglassgame.contracts.router
+import com.example.randomglassgame.contracts.soundManager
 import com.example.randomglassgame.databinding.FragmentStartBinding
 import com.example.randomglassgame.entity.Profile
 import com.example.randomglassgame.entity.Settings
-import com.example.randomglassgame.services.SoundService
+import com.example.randomglassgame.services.Sounds
 
 @SuppressLint("NewApi")
 class StartFragment : Fragment() {
@@ -19,6 +20,7 @@ class StartFragment : Fragment() {
 
     private lateinit var settings: Settings
     private lateinit var profile: Profile
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,17 +47,17 @@ class StartFragment : Fragment() {
 
     private fun onPlayClickListener() {
         router().showHomeScreen(profile, settings)
-        SoundService.getStartSound(requireContext())
     }
 
     private fun onSettingClickListener() {
-        SoundService.getTapSound(requireContext())
+        soundManager().playSound(Sounds.TAP_SOUND)
         val dialog = SettingsDialogFragment.newInstance(settings)
         dialog.show(parentFragmentManager, "dialog")
     }
 
     private fun getProfile() : Profile = requireArguments().getParcelable(HomeFragment.ARG_PROFILE, Profile::class.java)!!
     private fun getSettings() : Settings = requireArguments().getParcelable(ARG_SETTINGS, Settings::class.java)!!
+
 
     companion object {
 
@@ -77,5 +79,6 @@ class StartFragment : Fragment() {
         }
 
     }
+
 
 }

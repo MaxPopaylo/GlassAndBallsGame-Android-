@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.randomglassgame.adapters.InventoryAdapter
 import com.example.randomglassgame.contracts.router
+import com.example.randomglassgame.contracts.soundManager
 import com.example.randomglassgame.databinding.FragmentInventoryBinding
 import com.example.randomglassgame.entity.Profile
 import com.example.randomglassgame.entity.Settings
@@ -38,7 +39,7 @@ class InventoryFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding = FragmentInventoryBinding.inflate(inflater, container, false)
 
-        adapter = InventoryAdapter(settings, binding.rvInventory, profile.inventory, requireContext())
+        adapter = InventoryAdapter(settings, binding.rvInventory, profile.inventory, soundManager())
 
         with(binding) {
             rvInventory.adapter = adapter

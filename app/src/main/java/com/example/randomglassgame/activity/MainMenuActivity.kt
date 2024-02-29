@@ -3,6 +3,7 @@ package com.example.randomglassgame.activity
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
@@ -12,6 +13,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import com.example.randomglassgame.R
 import com.example.randomglassgame.contracts.HasBalanceInfo
+import com.example.randomglassgame.contracts.HasSounds
 import com.example.randomglassgame.contracts.ResultListener
 import com.example.randomglassgame.contracts.Router
 import com.example.randomglassgame.databinding.ActivityMainMenuBinding
@@ -22,14 +24,21 @@ import com.example.randomglassgame.fragments.HomeFragment
 import com.example.randomglassgame.fragments.InventoryFragment
 import com.example.randomglassgame.fragments.ShopFragment
 import com.example.randomglassgame.fragments.StartFragment
+import com.example.randomglassgame.services.SoundService
+import com.example.randomglassgame.services.Sounds
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
-class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo {
+class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds {
 
     private lateinit var binding: ActivityMainMenuBinding
 
     private lateinit var settings: Settings
     private lateinit var profile: Profile
+
+    private lateinit var soundService:SoundService
 
     private val currentFragment: Fragment
         get() = supportFragmentManager.findFragmentById(R.id.fragmentContainer)!!
@@ -39,6 +48,11 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo {
             super.onFragmentViewCreated(fm, f, v, savedInstanceState)
             updateMenu()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        soundService = SoundService(applicationContext)
     }
 
     @SuppressLint("NewApi")
@@ -82,6 +96,11 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo {
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
     }
 
+    override fun onPause() {
+        super.onPause()
+        soundService.release()
+    }
+
     override fun showHomeScreen(profile: Profile, settings: Settings) {
         launchFragment(HomeFragment.newInstance(profile, settings))
     }
@@ -100,6 +119,7 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo {
 
     override fun backToStartScreen() {
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        playSound(Sounds.TAP_SOUND)
     }
 
     override fun goBack() {
@@ -141,11 +161,22 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo {
         binding.tvBalance.text = profile.balance.toString()
     }
 
-    private fun launchFragment(fragment: Fragment) = supportFragmentManager
-        .beginTransaction()
-        .addToBackStack(null)
-        .replace(R.id.fragmentContainer, fragment)
-        .commit()
+    override fun playSound(sounds: Sounds) {
+        soundService.play(sounds)
+        Log.d("", "123123")
+    }
+
+    private fun launchFragment(fragment: Fragment) {
+        CoroutineScope(Dispatchers.Main).launch {
+            supportFragmentManager
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.fragmentContainer, fragment)
+                .apply { playSound(Sounds.TAP_SOUND) }
+                .commit()
+        }
+    }
+
 
     companion object {
         @JvmStatic private val KEY_RESULT = "RESULT"

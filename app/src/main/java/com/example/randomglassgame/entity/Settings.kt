@@ -3,6 +3,11 @@ package com.example.randomglassgame.entity
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+enum class Language {
+    ENGLISH,
+    UKRAINIAN
+}
+
 @Parcelize
 class Settings(
     var isSoundsOn: Boolean,

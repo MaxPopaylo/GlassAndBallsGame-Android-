@@ -1,39 +1,59 @@
 package com.example.randomglassgame.services
 
 import android.content.Context
-import android.media.MediaPlayer
+import android.media.AudioAttributes
+import android.media.SoundPool
 import com.example.randomglassgame.R
 
-class SoundService {
-    companion object {
+enum class Sounds {
+    MOVE_SOUND,
+    ALERT_SOUND,
+    SUCCESS_SOUND,
+    TAP_SOUND,
+    SHAKE_SOUND,
+    CHOOSE_SOUND
+}
 
-        fun getMoveSound(context: Context) {
-            MediaPlayer.create(context, R.raw.move).start()
+class SoundService(
+    private val context: Context
+) {
+
+    private val soundMap: MutableMap<Sounds, Int> = mutableMapOf()
+
+    private var soundPool: SoundPool = AudioAttributes.Builder()
+        .setUsage(AudioAttributes.USAGE_GAME)
+        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+        .build()
+        .let {
+            SoundPool.Builder()
+                .setAudioAttributes(it)
+                .setMaxStreams(Sounds.entries.size)
+                .build()
         }
 
-        fun getAlertSound(context: Context) {
-            MediaPlayer.create(context, R.raw.allert).start()
-        }
-
-        fun getSuccessSound(context: Context) {
-            MediaPlayer.create(context, R.raw.success).start()
-        }
-
-        fun getTapSound(context: Context) {
-            MediaPlayer.create(context, R.raw.tap).start()
-        }
-
-        fun getShakeSound(context: Context) {
-            MediaPlayer.create(context, R.raw.shake_in_glass).start()
-        }
-
-        fun getChooseSound(context: Context) {
-            MediaPlayer.create(context, R.raw.choose).start()
-        }
-
-        fun getStartSound(context: Context) {
-            MediaPlayer.create(context, R.raw.start).start()
-        }
-
+    init {
+        loadSounds()
     }
+
+    private fun loadSounds() {
+        loadSound(Sounds.MOVE_SOUND, R.raw.move)
+        loadSound(Sounds.ALERT_SOUND, R.raw.allert)
+        loadSound(Sounds.SUCCESS_SOUND, R.raw.success)
+        loadSound(Sounds.TAP_SOUND, R.raw.tap)
+        loadSound(Sounds.SHAKE_SOUND, R.raw.shake_in_glass)
+        loadSound(Sounds.CHOOSE_SOUND, R.raw.choose)
+    }
+
+    private fun loadSound(soundId: Sounds, soundResources: Int) {
+        soundMap[soundId] = soundPool.load(context, soundResources, 0)
+    }
+
+    fun play(soundId: Sounds) {
+        soundPool.play(soundMap[soundId]!!, 1f, 1f, 1, 0, 1f)
+    }
+
+    fun release() {
+        soundPool.release()
+    }
+
 }

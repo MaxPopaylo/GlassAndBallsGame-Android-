@@ -64,6 +64,7 @@ class HomeFragment: Fragment() {
         binding.tvMaxScoreVal.text = profile.maxScore.toString()
     }
 
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 

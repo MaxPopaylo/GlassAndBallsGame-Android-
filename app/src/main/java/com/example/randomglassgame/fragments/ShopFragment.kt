@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.randomglassgame.adapters.ShopAdapter
 import com.example.randomglassgame.contracts.balanceUpdater
 import com.example.randomglassgame.contracts.router
+import com.example.randomglassgame.contracts.soundManager
 import com.example.randomglassgame.databinding.FragmentShopBinding
 import com.example.randomglassgame.entity.Profile
 import com.example.randomglassgame.entity.Skin
@@ -34,7 +35,7 @@ class ShopFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentShopBinding.inflate(inflater, container, false)
 
-        adapter = ShopAdapter(profile, Skin.LIST, balanceUpdater(), requireContext())
+        adapter = ShopAdapter(profile, Skin.LIST, balanceUpdater(), soundManager())
 
         with(binding) {
             rvShop.adapter = adapter

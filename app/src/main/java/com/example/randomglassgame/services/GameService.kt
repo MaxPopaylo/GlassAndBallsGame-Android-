@@ -90,12 +90,13 @@ class GameService(
         var secondIndex: Int
 
         for (i in 0..shuffleCount) {
+            if (isGameWasStop) break
+
             firstIndex = findRandomIndex(null)
             secondIndex = findRandomIndex(firstIndex)
             adapter.swapItems(firstIndex, secondIndex)
 
             if (i != shuffleCount)  delay(shuffleDelay)
-            if (isGameWasStop) break
         }
     }
 
