@@ -54,17 +54,12 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds,
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        soundService = SoundService(applicationContext)
-        Log.d("TAG", "RESUME")
-    }
-
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainMenuBinding.inflate(layoutInflater). also { setContentView(it.root) }
         musicService = MusicService(applicationContext)
+        soundService = SoundService(applicationContext)
 
         settings = savedInstanceState?.getParcelable(Settings.EXTRA_SETTINGS, Settings::class.java)
             ?: Settings.DEFAULT_STATE
@@ -101,10 +96,6 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds,
         super.onDestroy()
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
         musicService.stopPlayer()
-    }
-
-    override fun onPause() {
-        super.onPause()
         soundService.release()
     }
 

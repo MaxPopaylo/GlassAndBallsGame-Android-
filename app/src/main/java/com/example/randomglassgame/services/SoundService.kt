@@ -56,12 +56,10 @@ class SoundService(
     }
 
     fun mute() {
-        soundPool.autoPause()
         isMuted = true
     }
 
     fun unMute() {
-        soundPool.autoResume()
         isMuted = false
     }
 

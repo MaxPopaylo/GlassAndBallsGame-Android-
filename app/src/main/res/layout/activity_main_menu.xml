@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainMenuActivity">
 
+    <include
+        layout="@layout/background"/>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
         android:layout_width="0dp"

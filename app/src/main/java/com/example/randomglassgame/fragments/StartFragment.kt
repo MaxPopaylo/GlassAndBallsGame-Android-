@@ -1,6 +1,8 @@
 package com.example.randomglassgame.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.media.AudioManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -44,6 +46,9 @@ class StartFragment : Fragment() {
             btnSettings.setOnClickListener { onSettingClickListener() }
         }
 
+        muteOrUnMuteSounds(settings.isSoundsOn, requireContext())
+        muteOrUnMuteMusic(settings.isMusicOn)
+
         return binding.root
     }
 
@@ -57,6 +62,31 @@ class StartFragment : Fragment() {
         val dialog = SettingsDialogFragment.newInstance(settings)
         dialog.show(parentFragmentManager, "dialog")
     }
+
+    private fun muteOrUnMuteSounds(isNotMute: Boolean, context: Context) {
+        if (isNotMute) {
+            soundManager().unMuteSounds()
+        } else {
+            soundManager().muteSounds()
+        }
+
+        (context.getSystemService(Context.AUDIO_SERVICE) as AudioManager)
+            .apply {
+                setStreamMute(AudioManager.STREAM_SYSTEM, isNotMute)
+                setStreamMute(AudioManager.STREAM_NOTIFICATION, isNotMute)
+                setStreamMute(AudioManager.STREAM_ALARM, isNotMute)
+                setStreamMute(AudioManager.STREAM_RING, isNotMute)
+            }
+    }
+
+    private fun muteOrUnMuteMusic(isNotMute: Boolean) {
+        if (isNotMute) {
+            musicManager().unMuteMusic()
+        } else {
+            musicManager().muteMusic()
+        }
+    }
+
 
     private fun getProfile() : Profile = requireArguments().getParcelable(HomeFragment.ARG_PROFILE, Profile::class.java)!!
     private fun getSettings() : Settings = requireArguments().getParcelable(ARG_SETTINGS, Settings::class.java)!!

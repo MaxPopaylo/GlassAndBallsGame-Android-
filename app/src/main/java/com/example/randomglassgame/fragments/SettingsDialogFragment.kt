@@ -53,11 +53,11 @@ class SettingsDialogFragment : DialogFragment() {
 
             swSounds.setOnCheckedChangeListener { _, isChecked ->
                 settings.isSoundsOn = isChecked
-                muteOrUnMuteSounds(!isChecked)
+                muteOrUnMuteSounds(isChecked, requireContext())
             }
             swMusic.setOnCheckedChangeListener { _, isChecked ->
                 settings.isMusicOn = isChecked
-                muteOrUnMuteMusic(!isChecked)
+                muteOrUnMuteMusic(isChecked)
             }
 
             spDifficulty.setSelection(settings.difficulty.ordinal)
@@ -92,27 +92,27 @@ class SettingsDialogFragment : DialogFragment() {
         dialog?.dismiss()
     }
 
-    private fun muteOrUnMuteSounds(isMute: Boolean) {
-        (context?.getSystemService(Context.AUDIO_SERVICE) as AudioManager)
-            .apply {
-                setStreamMute(AudioManager.STREAM_SYSTEM, isMute)
-                setStreamMute(AudioManager.STREAM_NOTIFICATION, isMute)
-                setStreamMute(AudioManager.STREAM_ALARM, isMute)
-                setStreamMute(AudioManager.STREAM_RING, isMute)
-            }
-
-        if (isMute) {
-            soundManager().muteSounds()
-        } else {
+    private fun muteOrUnMuteSounds(isNotMute: Boolean, context: Context) {
+        if (isNotMute) {
             soundManager().unMuteSounds()
+        } else {
+            soundManager().muteSounds()
         }
+
+        (context.getSystemService(Context.AUDIO_SERVICE) as AudioManager)
+            .apply {
+                setStreamMute(AudioManager.STREAM_SYSTEM, !isNotMute)
+                setStreamMute(AudioManager.STREAM_NOTIFICATION, !isNotMute)
+                setStreamMute(AudioManager.STREAM_ALARM, !isNotMute)
+                setStreamMute(AudioManager.STREAM_RING, !isNotMute)
+            }
     }
 
-    private fun muteOrUnMuteMusic(isMute: Boolean) {
-        if (isMute) {
-            musicManager().muteMusic()
-        } else {
+    private fun muteOrUnMuteMusic(isNotMute: Boolean) {
+        if (isNotMute) {
             musicManager().unMuteMusic()
+        } else {
+            musicManager().muteMusic()
         }
     }
 
