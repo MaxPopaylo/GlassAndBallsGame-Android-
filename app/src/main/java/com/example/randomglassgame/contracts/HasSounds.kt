@@ -9,4 +9,6 @@ fun Fragment.soundManager(): HasSounds {
 
 interface HasSounds {
     fun playSound(sounds: Sounds)
+    fun muteSounds()
+    fun unMuteSounds()
 }

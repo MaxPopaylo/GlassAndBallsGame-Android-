@@ -19,6 +19,7 @@ class SoundService(
 ) {
 
     private val soundMap: MutableMap<Sounds, Int> = mutableMapOf()
+    private var isMuted = false
 
     private var soundPool: SoundPool = AudioAttributes.Builder()
         .setUsage(AudioAttributes.USAGE_GAME)
@@ -49,7 +50,19 @@ class SoundService(
     }
 
     fun play(soundId: Sounds) {
-        soundPool.play(soundMap[soundId]!!, 1f, 1f, 1, 0, 1f)
+        if (!isMuted) {
+            soundPool.play(soundMap[soundId]!!, 1f, 1f, 1, 0, 1f)
+        }
+    }
+
+    fun mute() {
+        soundPool.autoPause()
+        isMuted = true
+    }
+
+    fun unMute() {
+        soundPool.autoResume()
+        isMuted = false
     }
 
     fun release() {

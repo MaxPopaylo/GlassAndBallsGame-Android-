@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import com.example.randomglassgame.R
 import com.example.randomglassgame.contracts.HasBalanceInfo
+import com.example.randomglassgame.contracts.HasMusic
 import com.example.randomglassgame.contracts.HasSounds
 import com.example.randomglassgame.contracts.ResultListener
 import com.example.randomglassgame.contracts.Router
@@ -24,14 +25,16 @@ import com.example.randomglassgame.fragments.HomeFragment
 import com.example.randomglassgame.fragments.InventoryFragment
 import com.example.randomglassgame.fragments.ShopFragment
 import com.example.randomglassgame.fragments.StartFragment
+import com.example.randomglassgame.services.MusicService
 import com.example.randomglassgame.services.SoundService
 import com.example.randomglassgame.services.Sounds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds {
+class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds, HasMusic {
 
     private lateinit var binding: ActivityMainMenuBinding
 
@@ -39,6 +42,7 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds 
     private lateinit var profile: Profile
 
     private lateinit var soundService:SoundService
+    private lateinit var musicService: MusicService
 
     private val currentFragment: Fragment
         get() = supportFragmentManager.findFragmentById(R.id.fragmentContainer)!!
@@ -53,12 +57,14 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds 
     override fun onResume() {
         super.onResume()
         soundService = SoundService(applicationContext)
+        Log.d("TAG", "RESUME")
     }
 
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainMenuBinding.inflate(layoutInflater). also { setContentView(it.root) }
+        musicService = MusicService(applicationContext)
 
         settings = savedInstanceState?.getParcelable(Settings.EXTRA_SETTINGS, Settings::class.java)
             ?: Settings.DEFAULT_STATE
@@ -94,6 +100,7 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds 
     override fun onDestroy() {
         super.onDestroy()
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
+        musicService.stopPlayer()
     }
 
     override fun onPause() {
@@ -163,17 +170,43 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds 
 
     override fun playSound(sounds: Sounds) {
         soundService.play(sounds)
-        Log.d("", "123123")
     }
 
+    override fun muteSounds() {
+        soundService.mute()
+    }
+
+    override fun unMuteSounds() {
+        soundService.unMute()
+    }
+
+    override fun playMusic() {
+        musicService.play()
+    }
+
+    override fun muteMusic() {
+        musicService.mute()
+    }
+
+    override fun unMuteMusic() {
+        musicService.unMute()
+    }
+
+
+    private var itFirstUsage = false
     private fun launchFragment(fragment: Fragment) {
         CoroutineScope(Dispatchers.Main).launch {
+
             supportFragmentManager
                 .beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.fragmentContainer, fragment)
-                .apply { playSound(Sounds.TAP_SOUND) }
                 .commit()
+
+            if (itFirstUsage) {
+                playSound(Sounds.TAP_SOUND)
+            }
+            itFirstUsage = true
         }
     }
 
@@ -181,5 +214,6 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds 
     companion object {
         @JvmStatic private val KEY_RESULT = "RESULT"
     }
+
 
 }

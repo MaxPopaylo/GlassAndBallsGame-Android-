@@ -17,7 +17,9 @@ import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import com.example.randomglassgame.R
+import com.example.randomglassgame.contracts.musicManager
 import com.example.randomglassgame.contracts.router
+import com.example.randomglassgame.contracts.soundManager
 import com.example.randomglassgame.databinding.FragmentSettingsDialogBinding
 import com.example.randomglassgame.entity.Difficulty
 import com.example.randomglassgame.entity.Language
@@ -90,22 +92,28 @@ class SettingsDialogFragment : DialogFragment() {
         dialog?.dismiss()
     }
 
-    private fun muteOrUnMuteSounds(isNotMute: Boolean) {
-       (context?.getSystemService(Context.AUDIO_SERVICE) as AudioManager)
-           .apply {
-               setStreamMute(AudioManager.STREAM_SYSTEM, isNotMute)
-               setStreamMute(AudioManager.STREAM_NOTIFICATION, isNotMute)
-               setStreamMute(AudioManager.STREAM_ALARM, isNotMute)
-               setStreamMute(AudioManager.STREAM_RING, isNotMute)
-               setStreamMute(AudioManager.STREAM_MUSIC, isNotMute)
-           }
-    }
-
-    fun muteOrUnMuteMusic(isNotMute: Boolean) {
+    private fun muteOrUnMuteSounds(isMute: Boolean) {
         (context?.getSystemService(Context.AUDIO_SERVICE) as AudioManager)
             .apply {
-                setStreamMute(AudioManager.STREAM_MUSIC, isNotMute)
+                setStreamMute(AudioManager.STREAM_SYSTEM, isMute)
+                setStreamMute(AudioManager.STREAM_NOTIFICATION, isMute)
+                setStreamMute(AudioManager.STREAM_ALARM, isMute)
+                setStreamMute(AudioManager.STREAM_RING, isMute)
             }
+
+        if (isMute) {
+            soundManager().muteSounds()
+        } else {
+            soundManager().unMuteSounds()
+        }
+    }
+
+    private fun muteOrUnMuteMusic(isMute: Boolean) {
+        if (isMute) {
+            musicManager().muteMusic()
+        } else {
+            musicManager().unMuteMusic()
+        }
     }
 
     private fun setupDifficultyAdapter() {

@@ -2,10 +2,12 @@ package com.example.randomglassgame.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.randomglassgame.contracts.musicManager
 import com.example.randomglassgame.contracts.router
 import com.example.randomglassgame.contracts.soundManager
 import com.example.randomglassgame.databinding.FragmentStartBinding
@@ -46,6 +48,7 @@ class StartFragment : Fragment() {
     }
 
     private fun onPlayClickListener() {
+        musicManager().playMusic()
         router().showHomeScreen(profile, settings)
     }
 

@@ -19,6 +19,6 @@ class Settings(
 
     companion object {
         @JvmStatic val EXTRA_SETTINGS = "EXTRA_SETTINGS"
-        @JvmStatic val DEFAULT_STATE = Settings(isSoundsOn = true, isMusicOn = true, Difficulty.NORMAL, Language.ENGLISH, Skin.DEFAULT)
+        @JvmStatic val DEFAULT_STATE = Settings(isSoundsOn = true, isMusicOn = false, Difficulty.NORMAL, Language.ENGLISH, Skin.DEFAULT)
     }
 }

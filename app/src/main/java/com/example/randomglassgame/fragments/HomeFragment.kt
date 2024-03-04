@@ -2,6 +2,7 @@ package com.example.randomglassgame.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +43,7 @@ class HomeFragment: Fragment() {
                 else profile.maxScore
             updateScoreUi()
 
-            profile.balance = profile.balance + result.coins
+            profile.balance += result.coins
             balanceUpdater().updateBalance()
         }
 
