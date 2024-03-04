@@ -2,7 +2,6 @@ package com.example.randomglassgame.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.randomglassgame.adapters.GlassActionListener
 import com.example.randomglassgame.adapters.GlassAdapter
+import com.example.randomglassgame.contracts.audioManager
 import com.example.randomglassgame.contracts.router
-import com.example.randomglassgame.contracts.soundManager
 import com.example.randomglassgame.databinding.FragmentGameBinding
 import com.example.randomglassgame.entity.GameInfo
 import com.example.randomglassgame.entity.Glass
@@ -53,7 +52,7 @@ class GameFragment: Fragment() {
             override fun onGlassPick(glass: Glass) {
                 pickGlass(glass)
             }
-        }, binding.rvPlayBoard, settings, soundManager())
+        }, binding.rvPlayBoard, settings, audioManager())
 
         service = GameService(settings, adapter)
             .apply {
@@ -100,14 +99,14 @@ class GameFragment: Fragment() {
                 service.changeGameSettings()
                 service.gameInit()
 
-                soundManager().playSound(Sounds.SUCCESS_SOUND)
+                audioManager().playSound(Sounds.SUCCESS_SOUND)
                 service.showWinToasts(requireContext(), layoutInflater)
 
                 startGame()
             } else {
                 service.markCorrectGlass(requireContext())
                 service.createLoseDialog(info, parentFragmentManager)
-                soundManager().playSound(Sounds.ALERT_SOUND)
+                audioManager().playSound(Sounds.ALERT_SOUND)
             }
         }
     }

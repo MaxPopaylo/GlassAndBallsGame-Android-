@@ -3,7 +3,6 @@ package com.example.randomglassgame.activity
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
@@ -12,9 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import com.example.randomglassgame.R
+import com.example.randomglassgame.contracts.HasAudio
 import com.example.randomglassgame.contracts.HasBalanceInfo
-import com.example.randomglassgame.contracts.HasMusic
-import com.example.randomglassgame.contracts.HasSounds
 import com.example.randomglassgame.contracts.ResultListener
 import com.example.randomglassgame.contracts.Router
 import com.example.randomglassgame.databinding.ActivityMainMenuBinding
@@ -25,24 +23,21 @@ import com.example.randomglassgame.fragments.HomeFragment
 import com.example.randomglassgame.fragments.InventoryFragment
 import com.example.randomglassgame.fragments.ShopFragment
 import com.example.randomglassgame.fragments.StartFragment
-import com.example.randomglassgame.services.MusicService
-import com.example.randomglassgame.services.SoundService
+import com.example.randomglassgame.services.AudioService
 import com.example.randomglassgame.services.Sounds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds, HasMusic {
+class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasAudio {
 
     private lateinit var binding: ActivityMainMenuBinding
 
     private lateinit var settings: Settings
     private lateinit var profile: Profile
 
-    private lateinit var soundService:SoundService
-    private lateinit var musicService: MusicService
+    private lateinit var audioService: AudioService
 
     private val currentFragment: Fragment
         get() = supportFragmentManager.findFragmentById(R.id.fragmentContainer)!!
@@ -58,8 +53,7 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainMenuBinding.inflate(layoutInflater). also { setContentView(it.root) }
-        musicService = MusicService(applicationContext)
-        soundService = SoundService(applicationContext)
+        audioService = AudioService(applicationContext)
 
         settings = savedInstanceState?.getParcelable(Settings.EXTRA_SETTINGS, Settings::class.java)
             ?: Settings.DEFAULT_STATE
@@ -95,8 +89,7 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds,
     override fun onDestroy() {
         super.onDestroy()
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
-        musicService.stopPlayer()
-        soundService.release()
+        audioService.release()
     }
 
     override fun showHomeScreen(profile: Profile, settings: Settings) {
@@ -159,30 +152,21 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds,
         binding.tvBalance.text = profile.balance.toString()
     }
 
+    override fun muteOrUnMuteSounds(isNotMute: Boolean) {
+        audioService.muteOrUnMuteSounds(isNotMute)
+    }
+
+    override fun muteOrUnMuteMusic(isNotMute: Boolean) {
+        audioService.muteOrUnMuteMusic(isNotMute)
+    }
+
     override fun playSound(sounds: Sounds) {
-        soundService.play(sounds)
-    }
-
-    override fun muteSounds() {
-        soundService.mute()
-    }
-
-    override fun unMuteSounds() {
-        soundService.unMute()
+        audioService.playSound(sounds)
     }
 
     override fun playMusic() {
-        musicService.play()
+        audioService.playMusic()
     }
-
-    override fun muteMusic() {
-        musicService.mute()
-    }
-
-    override fun unMuteMusic() {
-        musicService.unMute()
-    }
-
 
     private var itFirstUsage = false
     private fun launchFragment(fragment: Fragment) {
@@ -205,6 +189,5 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasSounds,
     companion object {
         @JvmStatic private val KEY_RESULT = "RESULT"
     }
-
 
 }

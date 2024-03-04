@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.randomglassgame.R
-import com.example.randomglassgame.contracts.HasSounds
+import com.example.randomglassgame.contracts.HasAudio
 import com.example.randomglassgame.databinding.ItemGlassForGameBinding
 import com.example.randomglassgame.entity.Glass
 import com.example.randomglassgame.entity.Settings
@@ -24,7 +24,7 @@ class GlassAdapter(
     private val actionClickListener: GlassActionListener,
     private val recyclerView: RecyclerView,
     private val settings: Settings,
-    private val soundManager: HasSounds
+    private val audioManager: HasAudio
 ) : RecyclerView.Adapter<GlassAdapter.GlassViewHolder>(), View.OnClickListener {
 
     class GlassViewHolder (val binding: ItemGlassForGameBinding) : RecyclerView.ViewHolder( binding.root )
@@ -64,14 +64,14 @@ class GlassAdapter(
         val holder = recyclerView.findViewHolderForAdapterPosition(index) as GlassViewHolder
 
         holder.binding.ivGlass.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shaking_anim))
-        soundManager.playSound(Sounds.SHAKE_SOUND)
+        audioManager.playSound(Sounds.SHAKE_SOUND)
         delay(1200L)
     }
 
     fun swapItems(oldIndex: Int, newIndex: Int) {
         Collections.swap(array, oldIndex, newIndex)
         notifyItemMoved(oldIndex, newIndex)
-        soundManager.playSound(Sounds.MOVE_SOUND)
+        audioManager.playSound(Sounds.MOVE_SOUND)
         }
 
 }

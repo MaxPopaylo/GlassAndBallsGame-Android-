@@ -1,14 +1,11 @@
 package com.example.randomglassgame.fragments
 
 import android.app.Dialog
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -17,9 +14,8 @@ import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import com.example.randomglassgame.R
-import com.example.randomglassgame.contracts.musicManager
+import com.example.randomglassgame.contracts.audioManager
 import com.example.randomglassgame.contracts.router
-import com.example.randomglassgame.contracts.soundManager
 import com.example.randomglassgame.databinding.FragmentSettingsDialogBinding
 import com.example.randomglassgame.entity.Difficulty
 import com.example.randomglassgame.entity.Language
@@ -42,7 +38,7 @@ class SettingsDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        _binding = FragmentSettingsDialogBinding.inflate(LayoutInflater.from(requireContext()))
+        _binding = FragmentSettingsDialogBinding.inflate(layoutInflater)
 
         setupDifficultyAdapter()
         setupLanguageAdapter()
@@ -53,11 +49,11 @@ class SettingsDialogFragment : DialogFragment() {
 
             swSounds.setOnCheckedChangeListener { _, isChecked ->
                 settings.isSoundsOn = isChecked
-                muteOrUnMuteSounds(isChecked, requireContext())
+                audioManager().muteOrUnMuteSounds(isChecked)
             }
             swMusic.setOnCheckedChangeListener { _, isChecked ->
                 settings.isMusicOn = isChecked
-                muteOrUnMuteMusic(isChecked)
+                audioManager().muteOrUnMuteMusic(isChecked)
             }
 
             spDifficulty.setSelection(settings.difficulty.ordinal)
@@ -76,8 +72,8 @@ class SettingsDialogFragment : DialogFragment() {
 
         dialog.window?.apply {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            setGravity(Gravity.CENTER);
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            setGravity(Gravity.CENTER)
         }
 
         return dialog
@@ -90,30 +86,6 @@ class SettingsDialogFragment : DialogFragment() {
     private fun onConfirmClickListener() {
         router().publishResult(settings)
         dialog?.dismiss()
-    }
-
-    private fun muteOrUnMuteSounds(isNotMute: Boolean, context: Context) {
-        if (isNotMute) {
-            soundManager().unMuteSounds()
-        } else {
-            soundManager().muteSounds()
-        }
-
-        (context.getSystemService(Context.AUDIO_SERVICE) as AudioManager)
-            .apply {
-                setStreamMute(AudioManager.STREAM_SYSTEM, !isNotMute)
-                setStreamMute(AudioManager.STREAM_NOTIFICATION, !isNotMute)
-                setStreamMute(AudioManager.STREAM_ALARM, !isNotMute)
-                setStreamMute(AudioManager.STREAM_RING, !isNotMute)
-            }
-    }
-
-    private fun muteOrUnMuteMusic(isNotMute: Boolean) {
-        if (isNotMute) {
-            musicManager().unMuteMusic()
-        } else {
-            musicManager().muteMusic()
-        }
     }
 
     private fun setupDifficultyAdapter() {

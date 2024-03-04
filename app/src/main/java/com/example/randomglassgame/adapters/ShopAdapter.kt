@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.randomglassgame.R
+import com.example.randomglassgame.contracts.HasAudio
 import com.example.randomglassgame.contracts.HasBalanceInfo
-import com.example.randomglassgame.contracts.HasSounds
 import com.example.randomglassgame.databinding.ItemGlassForShopBinding
 import com.example.randomglassgame.entity.Profile
 import com.example.randomglassgame.entity.Skin
@@ -18,7 +18,7 @@ class ShopAdapter(
     private var profile: Profile,
     private var array: List<Skin>,
     private var balanceInfo: HasBalanceInfo,
-    private var soundManager: HasSounds
+    private var audioManager: HasAudio
 ): RecyclerView.Adapter<ShopAdapter.ShopViewHolder>() {
 
     class ShopViewHolder (var binding: ItemGlassForShopBinding) : RecyclerView.ViewHolder ( binding.root )
@@ -55,7 +55,7 @@ class ShopAdapter(
 
             llShopItem.setOnClickListener {
                 if (isCanBuy(skin)) {
-                    soundManager.playSound(Sounds.SUCCESS_SOUND)
+                    audioManager.playSound(Sounds.SUCCESS_SOUND)
                     profile.balance -= skin.cost
 
                     profile.buySkin(skin)

@@ -25,7 +25,7 @@ import kotlin.random.Random
 
 class GameService(
     val settings: Settings,
-    val adapter: GlassAdapter
+    private val adapter: GlassAdapter
 ) {
 
     private lateinit var array: List<Glass>
@@ -133,7 +133,7 @@ class GameService(
         val binding = FragmentWinToastBinding.inflate(layoutInflater)
         roundsCount += 1
 
-        Toast(context)
+         Toast(context)
             .apply {
                 setGravity(Gravity.CENTER_VERTICAL, -100, -500)
                 duration = Toast.LENGTH_SHORT
