@@ -12,7 +12,7 @@ import com.example.randomglassgame.contracts.HasBalanceInfo
 import com.example.randomglassgame.databinding.ItemGlassForShopBinding
 import com.example.randomglassgame.entity.Profile
 import com.example.randomglassgame.entity.Skin
-import com.example.randomglassgame.services.Sounds
+import com.example.randomglassgame.services.audio.Sounds
 
 class ShopAdapter(
     private var profile: Profile,

@@ -1,11 +1,11 @@
-package com.example.randomglassgame.services
+package com.example.randomglassgame.services.audio
 
 import android.content.Context
 import android.media.AudioManager
 
 
 class AudioService (
-    val context: Context
+    private val context: Context
 ) {
     private val  musicService = MusicService(context)
     private val  soundService = SoundService(context)
@@ -17,12 +17,13 @@ class AudioService (
             soundService.mute()
         }
 
+        val adjust = if (isNotMute) AudioManager.ADJUST_UNMUTE else AudioManager.ADJUST_MUTE
         (context.getSystemService(Context.AUDIO_SERVICE) as AudioManager)
             .apply {
-                setStreamMute(AudioManager.STREAM_SYSTEM, !isNotMute)
-                setStreamMute(AudioManager.STREAM_NOTIFICATION, !isNotMute)
-                setStreamMute(AudioManager.STREAM_ALARM, !isNotMute)
-                setStreamMute(AudioManager.STREAM_RING, !isNotMute)
+                adjustStreamVolume(AudioManager.STREAM_SYSTEM, adjust, 0)
+                adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, adjust, 0)
+                adjustStreamVolume(AudioManager.STREAM_ALARM, adjust, 0)
+                adjustStreamVolume(AudioManager.STREAM_RING, adjust, 0)
             }
     }
 

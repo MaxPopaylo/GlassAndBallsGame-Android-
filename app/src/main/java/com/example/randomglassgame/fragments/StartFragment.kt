@@ -2,6 +2,7 @@ package com.example.randomglassgame.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,8 @@ import com.example.randomglassgame.contracts.router
 import com.example.randomglassgame.databinding.FragmentStartBinding
 import com.example.randomglassgame.entity.Profile
 import com.example.randomglassgame.entity.Settings
-import com.example.randomglassgame.services.Sounds
+import com.example.randomglassgame.services.AnimationService
+import com.example.randomglassgame.services.audio.Sounds
 
 @SuppressLint("NewApi")
 class StartFragment : Fragment() {
@@ -25,6 +27,10 @@ class StartFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        enterTransition = AnimationService.getSlideAnimationForRoute(Gravity.BOTTOM)
+        exitTransition = AnimationService.getSlideAnimationForRoute(Gravity.TOP)
+
         super.onCreate(savedInstanceState)
 
         settings = savedInstanceState?.getParcelable(Settings.EXTRA_SETTINGS, Settings::class.java)

@@ -2,6 +2,7 @@ package com.example.randomglassgame.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +18,9 @@ import com.example.randomglassgame.databinding.FragmentGameBinding
 import com.example.randomglassgame.entity.GameInfo
 import com.example.randomglassgame.entity.Glass
 import com.example.randomglassgame.entity.Settings
+import com.example.randomglassgame.services.AnimationService
 import com.example.randomglassgame.services.GameService
-import com.example.randomglassgame.services.Sounds
+import com.example.randomglassgame.services.audio.Sounds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -37,6 +39,10 @@ class GameFragment: Fragment() {
     private lateinit var service: GameService
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        enterTransition = AnimationService.getSlideAnimationForRoute(Gravity.TOP)
+        exitTransition = AnimationService.getSlideAnimationForRoute(Gravity.BOTTOM)
+
         super.onCreate(savedInstanceState)
 
         settings = getSettings()

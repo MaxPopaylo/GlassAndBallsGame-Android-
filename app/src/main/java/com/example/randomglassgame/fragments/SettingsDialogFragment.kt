@@ -21,6 +21,7 @@ import com.example.randomglassgame.entity.Difficulty
 import com.example.randomglassgame.entity.Language
 import com.example.randomglassgame.entity.Settings
 
+
 class SettingsDialogFragment : DialogFragment() {
 
     private var _binding: FragmentSettingsDialogBinding? = null
@@ -33,6 +34,7 @@ class SettingsDialogFragment : DialogFragment() {
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         settings = getSettings()
     }

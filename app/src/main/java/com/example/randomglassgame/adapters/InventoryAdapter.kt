@@ -8,7 +8,7 @@ import com.example.randomglassgame.contracts.HasAudio
 import com.example.randomglassgame.databinding.ItemGlassForInventoryBinding
 import com.example.randomglassgame.entity.Settings
 import com.example.randomglassgame.entity.Skin
-import com.example.randomglassgame.services.Sounds
+import com.example.randomglassgame.services.audio.Sounds
 
 class InventoryAdapter(
     private var settings: Settings,

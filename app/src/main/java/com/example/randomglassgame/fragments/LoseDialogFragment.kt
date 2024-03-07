@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.Window
 import androidx.annotation.RequiresApi
@@ -16,18 +15,20 @@ import com.example.randomglassgame.databinding.FragmentLoseDialogBinding
 import com.example.randomglassgame.entity.GameInfo
 import com.example.randomglassgame.entity.Settings
 
+
 class LoseDialogFragment : DialogFragment() {
 
     private lateinit var info: GameInfo
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         info = getInfo()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val binding = FragmentLoseDialogBinding.inflate(LayoutInflater.from(context))
+        val binding = FragmentLoseDialogBinding.inflate(layoutInflater)
 
         with(binding) {
             tvScore.text = info.score.toString()
@@ -46,8 +47,8 @@ class LoseDialogFragment : DialogFragment() {
 
         dialog.window?.apply {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            setGravity(Gravity.CENTER);
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            setGravity(Gravity.CENTER)
         }
 
         return dialog

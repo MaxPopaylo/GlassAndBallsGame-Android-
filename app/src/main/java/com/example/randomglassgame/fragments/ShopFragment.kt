@@ -2,6 +2,7 @@ package com.example.randomglassgame.fragments
 
 import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.example.randomglassgame.contracts.router
 import com.example.randomglassgame.databinding.FragmentShopBinding
 import com.example.randomglassgame.entity.Profile
 import com.example.randomglassgame.entity.Skin
+import com.example.randomglassgame.services.AnimationService
 
 class ShopFragment : Fragment() {
 
@@ -26,6 +28,10 @@ class ShopFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        enterTransition = AnimationService.getSlideAnimationForRoute(Gravity.START)
+        exitTransition = AnimationService.getSlideAnimationForRoute(Gravity.END)
+
         super.onCreate(savedInstanceState)
 
         profile = savedInstanceState?.getParcelable(Profile.EXTRA_PROFILE, Profile::class.java)

@@ -1,7 +1,7 @@
 package com.example.randomglassgame.contracts
 
 import androidx.fragment.app.Fragment
-import com.example.randomglassgame.services.Sounds
+import com.example.randomglassgame.services.audio.Sounds
 
 fun Fragment.audioManager():  HasAudio {
     return requireActivity() as  HasAudio

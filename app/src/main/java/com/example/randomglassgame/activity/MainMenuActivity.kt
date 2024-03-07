@@ -23,8 +23,8 @@ import com.example.randomglassgame.fragments.HomeFragment
 import com.example.randomglassgame.fragments.InventoryFragment
 import com.example.randomglassgame.fragments.ShopFragment
 import com.example.randomglassgame.fragments.StartFragment
-import com.example.randomglassgame.services.AudioService
-import com.example.randomglassgame.services.Sounds
+import com.example.randomglassgame.services.audio.AudioService
+import com.example.randomglassgame.services.audio.Sounds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

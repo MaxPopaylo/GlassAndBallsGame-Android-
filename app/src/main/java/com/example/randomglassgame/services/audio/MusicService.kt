@@ -1,10 +1,9 @@
-package com.example.randomglassgame.services
+package com.example.randomglassgame.services.audio
 
 import android.content.Context
 import android.media.MediaPlayer
 import android.util.Log
 import com.example.randomglassgame.R
-import kotlinx.coroutines.delay
 
 class MusicService (
     private val context: Context
