@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
@@ -146,16 +145,16 @@ class GameService(
                 tvScoreValue.text = "${10 * scoreMultipleRatio}"
                 tvCoinsValue.text = "${1 * scoreMultipleRatio}"
 
-                llScoreWinToast.startAnimation(AnimationUtils.loadAnimation(context, R.anim.upping_anim))
+                llScoreWinToast.startAnimation(AnimationService.getAnimation(context, R.anim.upping_anim))
                 delay(200L)
                 llCoinsWinToast.isVisible = true
-                llCoinsWinToast.startAnimation(AnimationUtils.loadAnimation(context, R.anim.upping_anim))
+                llCoinsWinToast.startAnimation(AnimationService.getAnimation(context, R.anim.upping_anim))
 
                 delay(700L)
 
-                llScoreWinToast.startAnimation(AnimationUtils.loadAnimation(context, R.anim.falling_anim))
+                llScoreWinToast.startAnimation(AnimationService.getAnimation(context, R.anim.falling_anim))
                 delay(200L)
-                llCoinsWinToast.startAnimation(AnimationUtils.loadAnimation(context, R.anim.falling_anim))
+                llScoreWinToast.startAnimation(AnimationService.getAnimation(context, R.anim.falling_anim))
 
             }
 

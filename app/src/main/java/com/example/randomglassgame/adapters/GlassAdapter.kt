@@ -5,13 +5,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.randomglassgame.R
 import com.example.randomglassgame.contracts.HasAudio
 import com.example.randomglassgame.databinding.ItemGlassForGameBinding
 import com.example.randomglassgame.entity.Glass
 import com.example.randomglassgame.entity.Settings
+import com.example.randomglassgame.services.AnimationService
 import com.example.randomglassgame.services.audio.Sounds
 import kotlinx.coroutines.delay
 import java.util.Collections
@@ -63,7 +63,7 @@ class GlassAdapter(
         val index = array.indexOf(glass)
         val holder = recyclerView.findViewHolderForAdapterPosition(index) as GlassViewHolder
 
-        holder.binding.ivGlass.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shaking_anim))
+        holder.binding.ivGlass.startAnimation(AnimationService.getAnimation(context, R.anim.shaking_anim))
         audioManager.playSound(Sounds.SHAKE_SOUND)
         delay(1200L)
     }
