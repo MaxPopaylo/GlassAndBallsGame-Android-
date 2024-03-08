@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">لعبة الزجاج العشوائي</string>
+    <string name="settings">الإعدادات</string>
+    <string name="home">الرئيسية</string>
+    <string name="profile">الملف الشخصي</string>
+    <string name="exit">خروج</string>
+    <string name="play">اللعب</string>
+    <string name="score">النقاط:</string>
+    <string name="zero">0</string>
+    <string name="name">الاسم: </string>
+    <string name="value">القيمة</string>
+    <string name="maxscore">أقصى نقاط:</string>
+    <string name="currentscore">النقاط الحالية:</string>
+    <string name="back">رجوع</string>
+    <string name="difficulty">الصعوبة:</string>
+    <string name="glass">الزجاج</string>
+    <string name="save">حفظ</string>
+    <string name="start">بدء</string>
+    <string name="pick_a_correct_glass">اختر الزجاج الصحيح…</string>
+    <string name="keep_an_eye_on_the_glasses">ابقَ عينًا على الأكواب…</string>
+    <string name="ampersand">&amp;</string>
+    <string name="balls">الكرات</string>
+    <string name="glass_2dots">زجاج:</string>
+    <string name="shop">المتجر</string>
+    <string name="inventory">المخزون</string>
+    <string name="stats">الإحصائيات</string>
+    <string name="score_upper">النقاط</string>
+    <string name="coins_upper">النقود</string>
+    <string name="settings_upper">الإعدادات</string>
+    <string name="confirm_upper">تأكيد</string>
+    <string name="options_upper">الخيارات</string>
+    <string name="difficulty_upper">الصعوبة</string>
+    <string name="language_upper">اللغة</string>
+    <string name="sounds_upper">الأصوات</string>
+    <string name="music_upper">الموسيقى</string>
+    <string name="tap_to_screen">اضغط للشاشة…</string>
+    <string name="achieves">الإنجازات</string>
+</resources>

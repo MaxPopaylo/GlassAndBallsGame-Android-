@@ -18,8 +18,9 @@ import com.example.randomglassgame.contracts.audioManager
 import com.example.randomglassgame.contracts.router
 import com.example.randomglassgame.databinding.FragmentSettingsDialogBinding
 import com.example.randomglassgame.entity.Difficulty
-import com.example.randomglassgame.entity.Language
 import com.example.randomglassgame.entity.Settings
+import com.example.randomglassgame.services.Language
+import com.example.randomglassgame.services.LanguageService
 
 
 class SettingsDialogFragment : DialogFragment() {
@@ -32,6 +33,8 @@ class SettingsDialogFragment : DialogFragment() {
     private lateinit var difficultyAdapter: ArrayAdapter<Difficulty>
     private lateinit var languageAdapter: ArrayAdapter<Language>
 
+    private lateinit var oldLanguage: Language
+
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -41,6 +44,7 @@ class SettingsDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = FragmentSettingsDialogBinding.inflate(layoutInflater)
+        oldLanguage = settings.language
 
         setupDifficultyAdapter()
         setupLanguageAdapter()
@@ -136,6 +140,11 @@ class SettingsDialogFragment : DialogFragment() {
                 id: Long
             ) {
                 settings.language = data[position]
+                LanguageService.setLocale(data[position], requireContext())
+
+                if (oldLanguage != settings.language) {
+                    router().recreateActivity()
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

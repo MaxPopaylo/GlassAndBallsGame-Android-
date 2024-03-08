@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Losowa Gra Szkła</string>
+    <string name="settings">Ustawienia</string>
+    <string name="home">Strona główna</string>
+    <string name="profile">Profil</string>
+    <string name="exit">Wyjdź</string>
+    <string name="play">Graj</string>
+    <string name="score">Wynik:</string>
+    <string name="zero">0</string>
+    <string name="name">Nazwa: </string>
+    <string name="value">Wartość</string>
+    <string name="maxscore">Najwyższy wynik:</string>
+    <string name="currentscore">Aktualny wynik:</string>
+    <string name="back">Powrót</string>
+    <string name="difficulty">Poziom trudności:</string>
+    <string name="glass">Szkło</string>
+    <string name="save">Zapisz</string>
+    <string name="start">Start</string>
+    <string name="pick_a_correct_glass">Wybierz poprawne szkło…</string>
+    <string name="keep_an_eye_on_the_glasses">Miej oko na szklanki…</string>
+    <string name="ampersand">&amp;</string>
+    <string name="balls">Kulki</string>
+    <string name="glass_2dots">Szkło:</string>
+    <string name="shop">Sklep</string>
+    <string name="inventory">Inwentarz</string>
+    <string name="stats">Statystyki</string>
+    <string name="score_upper">WYNIK</string>
+    <string name="coins_upper">MONETY</string>
+    <string name="settings_upper">USTAWIENIA</string>
+    <string name="confirm_upper">POTWIERDŹ</string>
+    <string name="options_upper">OPCJE</string>
+    <string name="difficulty_upper">POZIOM TRUDNOŚCI</string>
+    <string name="language_upper">JĘZYK</string>
+    <string name="sounds_upper">DŹWIĘKI</string>
+    <string name="music_upper">MUZYKA</string>
+    <string name="tap_to_screen">Kliknij, aby kontynuować…</string>
+    <string name="achieves">Osiągnięcia</string>
+</resources>

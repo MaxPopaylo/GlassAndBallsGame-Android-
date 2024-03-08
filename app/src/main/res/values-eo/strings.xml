@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HazarVitraLudo</string>
+    <string name="settings">Agordoj</string>
+    <string name="home">Hejmo</string>
+    <string name="profile">Profilo</string>
+    <string name="exit">Eliro</string>
+    <string name="play">Ludi</string>
+    <string name="score">Poentoj:</string>
+    <string name="zero">0</string>
+    <string name="name">Nomo: </string>
+    <string name="value">Valoro</string>
+    <string name="maxscore">Maksimuma Poentoj:</string>
+    <string name="currentscore">Nuna Poentoj:</string>
+    <string name="back">Reen</string>
+    <string name="difficulty">Malfacileco:</string>
+    <string name="glass">Vitro</string>
+    <string name="save">Konservi</string>
+    <string name="start">Komenci</string>
+    <string name="pick_a_correct_glass">Elektu ĝustan glason…</string>
+    <string name="keep_an_eye_on_the_glasses">Rigardu la glasojn…</string>
+    <string name="ampersand">&amp;</string>
+    <string name="balls">Buloj</string>
+    <string name="glass_2dots">Vitro:</string>
+    <string name="shop">Butiko</string>
+    <string name="inventory">Inventaro</string>
+    <string name="stats">Statistikoj</string>
+    <string name="score_upper">POENTOJ</string>
+    <string name="coins_upper">MONEROJ</string>
+    <string name="settings_upper">AGORDOJ</string>
+    <string name="confirm_upper">KONFIRMI</string>
+    <string name="options_upper">OPCIOJ</string>
+    <string name="difficulty_upper">MALFACILECO</string>
+    <string name="language_upper">LINGVO</string>
+    <string name="sounds_upper">SONOJ</string>
+    <string name="music_upper">MUZIKO</string>
+    <string name="tap_to_screen">Frapu la ekrano…</string>
+    <string name="achieves">Atingoj</string>
+</resources>

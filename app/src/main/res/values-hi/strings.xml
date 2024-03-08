@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">रैंडम ग्लास गेम</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="home">होम</string>
+    <string name="profile">प्रोफाइल</string>
+    <string name="exit">बाहर निकलें</string>
+    <string name="play">खेलें</string>
+    <string name="score">स्कोर:</string>
+    <string name="zero">0</string>
+    <string name="name">नाम: </string>
+    <string name="value">मूल्य</string>
+    <string name="maxscore">अधिकतम स्कोर:</string>
+    <string name="currentscore">वर्तमान स्कोर:</string>
+    <string name="back">पीछे</string>
+    <string name="difficulty">कठिनाई:</string>
+    <string name="glass">गिलास</string>
+    <string name="save">सहेजें</string>
+    <string name="start">शुरू</string>
+    <string name="pick_a_correct_glass">सही गिलास चुनें…</string>
+    <string name="keep_an_eye_on_the_glasses">गिलासों पर ध्यान रखें…</string>
+    <string name="ampersand">&amp;</string>
+    <string name="balls">गेंदें</string>
+    <string name="glass_2dots">गिलास:</string>
+    <string name="shop">दुकान</string>
+    <string name="inventory">इन्वेंटरी</string>
+    <string name="stats">आँकड़े</string>
+    <string name="score_upper">स्कोर</string>
+    <string name="coins_upper">सिक्के</string>
+    <string name="settings_upper">सेटिंग्स</string>
+    <string name="confirm_upper">पुष्टि करें</string>
+    <string name="options_upper">विकल्प</string>
+    <string name="difficulty_upper">कठिनाई</string>
+    <string name="language_upper">भाषा</string>
+    <string name="sounds_upper">ध्वनियाँ</string>
+    <string name="music_upper">संगीत</string>
+    <string name="tap_to_screen">स्क्रीन पर टैप करें…</string>
+    <string name="achieves">उपलब्धियां</string>
+</resources>

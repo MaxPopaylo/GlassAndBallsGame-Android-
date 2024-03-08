@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Jogo de Vidro Aleatório</string>
+    <string name="settings">Configurações</string>
+    <string name="home">Início</string>
+    <string name="profile">Perfil</string>
+    <string name="exit">Sair</string>
+    <string name="play">Jogar</string>
+    <string name="score">Pontuação:</string>
+    <string name="zero">0</string>
+    <string name="name">Nome: </string>
+    <string name="value">Valor</string>
+    <string name="maxscore">Pontuação Máxima:</string>
+    <string name="currentscore">Pontuação Atual:</string>
+    <string name="back">Voltar</string>
+    <string name="difficulty">Dificuldade:</string>
+    <string name="glass">Copo</string>
+    <string name="save">Salvar</string>
+    <string name="start">Iniciar</string>
+    <string name="pick_a_correct_glass">Escolha um copo correto…</string>
+    <string name="keep_an_eye_on_the_glasses">Fique de olho nos copos…</string>
+    <string name="ampersand">&amp;</string>
+    <string name="balls">Bolas</string>
+    <string name="glass_2dots">Copo:</string>
+    <string name="shop">Loja</string>
+    <string name="inventory">Inventário</string>
+    <string name="stats">Estatísticas</string>
+    <string name="score_upper">PONTUAÇÃO</string>
+    <string name="coins_upper">MOEDAS</string>
+    <string name="settings_upper">CONFIGURAÇÕES</string>
+    <string name="confirm_upper">CONFIRMAR</string>
+    <string name="options_upper">OPÇÕES</string>
+    <string name="difficulty_upper">DIFICULDADE</string>
+    <string name="language_upper">IDIOMA</string>
+    <string name="sounds_upper">SOM</string>
+    <string name="music_upper">MÚSICA</string>
+    <string name="tap_to_screen">Toque na tela…</string>
+    <string name="achieves">Conquistas</string>
+</resources>

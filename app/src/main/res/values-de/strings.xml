@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Zufälliges Glas Spiel</string>
+    <string name="settings">Einstellungen</string>
+    <string name="home">Startseite</string>
+    <string name="profile">Profil</string>
+    <string name="exit">Beenden</string>
+    <string name="play">Spielen</string>
+    <string name="score">Punktzahl:</string>
+    <string name="zero">0</string>
+    <string name="name">Name: </string>
+    <string name="value">Wert</string>
+    <string name="maxscore">Maximale Punktzahl:</string>
+    <string name="currentscore">Aktuelle Punktzahl:</string>
+    <string name="back">Zurück</string>
+    <string name="difficulty">Schwierigkeit:</string>
+    <string name="glass">Glas</string>
+    <string name="save">Speichern</string>
+    <string name="start">Starten</string>
+    <string name="pick_a_correct_glass">Wähle ein richtiges Glas…</string>
+    <string name="keep_an_eye_on_the_glasses">Behalte die Gläser im Auge…</string>
+    <string name="ampersand">&amp;</string>
+    <string name="balls">Kugeln</string>
+    <string name="glass_2dots">Glas:</string>
+    <string name="shop">Geschäft</string>
+    <string name="inventory">Inventar</string>
+    <string name="stats">Statistiken</string>
+    <string name="score_upper">PUNKTE</string>
+    <string name="coins_upper">MÜNZEN</string>
+    <string name="settings_upper">EINSTELLUNGEN</string>
+    <string name="confirm_upper">BESTÄTIGEN</string>
+    <string name="options_upper">OPTIONEN</string>
+    <string name="difficulty_upper">SCHWIERIGKEIT</string>
+    <string name="language_upper">SPRACHE</string>
+    <string name="sounds_upper">GERÄUSCHE</string>
+    <string name="music_upper">MUSIK</string>
+    <string name="tap_to_screen">Tippe auf den Bildschirm…</string>
+    <string name="achieves">Errungenschaften</string>
+</resources>

@@ -2,7 +2,6 @@ package com.example.randomglassgame.services.audio
 
 import android.content.Context
 import android.media.MediaPlayer
-import android.util.Log
 import com.example.randomglassgame.R
 
 class MusicService (
@@ -23,8 +22,6 @@ class MusicService (
             mediaPlayer = MediaPlayer.create(context, musicResource)
             mediaPlayer.setVolume(volume, volume)
             isPrepared = true
-        } else {
-            Log.d("MusicService", "MediaPlayer didn't loaded")
         }
     }
 

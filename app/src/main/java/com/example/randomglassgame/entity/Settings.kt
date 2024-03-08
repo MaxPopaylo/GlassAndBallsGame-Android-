@@ -1,12 +1,8 @@
 package com.example.randomglassgame.entity
 
 import android.os.Parcelable
+import com.example.randomglassgame.services.Language
 import kotlinx.parcelize.Parcelize
-
-enum class Language {
-    ENGLISH,
-    UKRAINIAN
-}
 
 @Parcelize
 class Settings(

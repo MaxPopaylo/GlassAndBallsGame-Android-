@@ -16,6 +16,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        resourceConfigurations.addAll(arrayOf("en", "ar", "de", "eo", "es" ,"hi", "ja", "pl", "pt", "uk", "zh"))
     }
 
     buildFeatures {

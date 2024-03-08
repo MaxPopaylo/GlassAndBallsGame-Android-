@@ -113,6 +113,10 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasAudio {
         playSound(Sounds.TAP_SOUND)
     }
 
+    override fun recreateActivity() {
+        recreate()
+    }
+
     override fun goBack() {
         onBackPressedDispatcher.onBackPressed()
     }

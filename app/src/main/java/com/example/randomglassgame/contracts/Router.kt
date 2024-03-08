@@ -19,6 +19,7 @@ interface Router {
     fun showShopScreen(profile: Profile)
     fun showGameScreen(settings: Settings)
     fun backToStartScreen()
+    fun recreateActivity()
     fun goBack()
     fun <T : Parcelable> publishResult(result: T)
     fun <T : Parcelable> listenResult(clazz: Class<T>, owner: LifecycleOwner, listener: ResultListener<T>)

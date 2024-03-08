@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Випадкова гра зі склянками</string>
+    <string name="settings">Налаштування</string>
+    <string name="home">Головна</string>
+    <string name="profile">Профіль</string>
+    <string name="exit">Вийти</string>
+    <string name="play">Грати</string>
+    <string name="score">Рахунок:</string>
+    <string name="zero">0</string>
+    <string name="name">Ім\'я: </string>
+    <string name="value">Значення</string>
+    <string name="maxscore">Максимальна оцінка:</string>
+    <string name="currentscore">Поточна оцінка:</string>
+    <string name="back">Назад</string>
+    <string name="difficulty">Складність:</string>
+    <string name="glass">Склянка</string>
+    <string name="save">Зберегти</string>
+    <string name="start">Початок</string>
+    <string name="pick_a_correct_glass">Оберіть правильну склянку…</string>
+    <string name="keep_an_eye_on_the_glasses">Слідкуйте за склянками…</string>
+    <string name="ampersand">&amp;</string>
+    <string name="balls">Кульки</string>
+    <string name="glass_2dots">Склянка:</string>
+    <string name="shop">Магазин</string>
+    <string name="inventory">Інвентар</string>
+    <string name="stats">Статистика</string>
+    <string name="score_upper">РАХУНОК</string>
+    <string name="coins_upper">МОНЕТИ</string>
+    <string name="settings_upper">НАЛАШТУВАННЯ</string>
+    <string name="confirm_upper">ПІДТВЕРДІТИ</string>
+    <string name="options_upper">ОПЦІЇ</string>
+    <string name="difficulty_upper">СКЛАДНІСТЬ</string>
+    <string name="language_upper">МОВА</string>
+    <string name="sounds_upper">ЗВУКИ</string>
+    <string name="music_upper">МУЗИКА</string>
+    <string name="tap_to_screen">Натисніть на екран…</string>
+    <string name="achieves">Досягнення</string>
+</resources>
