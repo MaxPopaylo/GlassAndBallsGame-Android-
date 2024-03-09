@@ -1,7 +1,8 @@
 package com.example.randomglassgame.services
 
-import java.util.Locale
 import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 
 enum class Language {
     ENGLISH,
@@ -36,18 +37,28 @@ class LanguageService {
                 Language.CHINESE to "zh"
             )
 
-        fun setLocale(language: Language, context: Context) {
-            val config = context.resources.configuration
+        fun setLocale(language: Language) {
+            val appLocale = LocaleListCompat.forLanguageTags(languages[language])
+            AppCompatDelegate.setApplicationLocales(appLocale)
+        }
 
-            Locale(languages[language]!!).apply {
-                Locale.setDefault(this@apply)
-                config.setLocale(this@apply)
+        fun getCurrentLanguage(context: Context): Language {
+            val locale = context.resources.configuration.locales[0]
+            return when (locale.language) {
+                "ar" -> Language.ARABIC
+                "de" -> Language.GERMAN
+                "eo" -> Language.ESPERANTO
+                "es" -> Language.SPANISH
+                "hi" -> Language.HINDI
+                "ja" -> Language.JAPANESE
+                "pl" -> Language.POLISH
+                "pt" -> Language.PORTUGUESE
+                "uk" -> Language.UKRAINIAN
+                "zh" -> Language.CHINESE
+                else -> Language.ENGLISH
             }
-
-            context.resources.updateConfiguration(config, context.resources.displayMetrics)
         }
 
     }
-
 
 }

@@ -23,6 +23,7 @@ import com.example.randomglassgame.fragments.HomeFragment
 import com.example.randomglassgame.fragments.InventoryFragment
 import com.example.randomglassgame.fragments.ShopFragment
 import com.example.randomglassgame.fragments.StartFragment
+import com.example.randomglassgame.services.LanguageService
 import com.example.randomglassgame.services.audio.AudioService
 import com.example.randomglassgame.services.audio.Sounds
 import kotlinx.coroutines.CoroutineScope
@@ -60,6 +61,8 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasAudio {
 
         profile = savedInstanceState?.getParcelable(Profile.EXTRA_PROFILE, Profile::class.java)
             ?: Profile.DEFAULT_STATE
+
+        settings.language = LanguageService.getCurrentLanguage(applicationContext)
 
         if (savedInstanceState == null) {
             supportFragmentManager
@@ -111,10 +114,6 @@ class MainMenuActivity : AppCompatActivity(), Router, HasBalanceInfo, HasAudio {
     override fun backToStartScreen() {
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         playSound(Sounds.TAP_SOUND)
-    }
-
-    override fun recreateActivity() {
-        recreate()
     }
 
     override fun goBack() {
