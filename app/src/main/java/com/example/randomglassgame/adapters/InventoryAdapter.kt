@@ -1,5 +1,6 @@
 package com.example.randomglassgame.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,8 @@ class InventoryAdapter(
     private var settings: Settings,
     private val recyclerView: RecyclerView,
     private var array: List<Skin>,
-    private val audioManager: HasAudio
+    private val audioManager: HasAudio,
+    private val context: Context
 ): RecyclerView.Adapter<InventoryAdapter.InventoryViewHolder>(){
 
     class InventoryViewHolder (var binding: ItemGlassForInventoryBinding) : RecyclerView.ViewHolder ( binding.root )
@@ -34,7 +36,7 @@ class InventoryAdapter(
         val skin = array[position]
 
         with(holder.binding) {
-            tvSkinName.text = skin.name
+            tvSkinName.text = context.resources.getText(skin.name)
             ivSkin.setImageResource(skin.img)
             if (settings.skin == skin) {
                ivSkin.setBackgroundResource(R.drawable.background_for_items_seletcted)

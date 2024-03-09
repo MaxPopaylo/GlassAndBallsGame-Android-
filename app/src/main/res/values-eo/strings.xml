@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--    LUDO-TEKSTOJ    -->
     <string name="app_name">HazarVitraLudo</string>
     <string name="settings">Agordoj</string>
     <string name="home">Hejmo</string>
@@ -36,4 +38,23 @@
     <string name="music_upper">MUZIKO</string>
     <string name="tap_to_screen">Frapu la ekrano…</string>
     <string name="achieves">Atingoj</string>
+
+    <!--    HAŬTO-TEKSTOJ    -->
+    <string name="default_skin">Defaŭlta</string>
+    <string name="beer1_skin">Biero</string>
+    <string name="beer2_skin">Biero2</string>
+    <string name="beer_guinness_skin">Guinness</string>
+    <string name="wine1_skin">Vino</string>
+    <string name="wine2_skin">Vino2</string>
+    <string name="wine3_skin">Vino3</string>
+    <string name="tea_skin">Teo</string>
+    <string name="juice_skin">Suko</string>
+    <string name="coffee_skin">Kafo</string>
+    <string name="cocos_skin">Kokoso</string>
+    <string name="soda1_skin">Sodo</string>
+    <string name="soda2_skin">Sodo2</string>
+    <string name="smile_soda_skin">Ridosodo</string>
+    <string name="martini_skin">Martini</string>
+    <string name="whisky_skin">Viskio</string>
+
 </resources>

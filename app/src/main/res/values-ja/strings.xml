@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--    ゲームの文字列    -->
     <string name="app_name">ランダムグラスゲーム</string>
     <string name="settings">設定</string>
     <string name="home">ホーム</string>
@@ -36,4 +38,23 @@
     <string name="music_upper">音楽</string>
     <string name="tap_to_screen">画面をタップしてください…</string>
     <string name="achieves">達成</string>
+
+    <!--    スキンの文字列    -->
+    <string name="default_skin">デフォルト</string>
+    <string name="beer1_skin">ビール</string>
+    <string name="beer2_skin">ビール2</string>
+    <string name="beer_guinness_skin">ギネス</string>
+    <string name="wine1_skin">ワイン</string>
+    <string name="wine2_skin">ワイン2</string>
+    <string name="wine3_skin">ワイン3</string>
+    <string name="tea_skin">お茶</string>
+    <string name="juice_skin">ジュース</string>
+    <string name="coffee_skin">コーヒー</string>
+    <string name="cocos_skin">ココス</string>
+    <string name="soda1_skin">ソーダ</string>
+    <string name="soda2_skin">ソーダ2</string>
+    <string name="smile_soda_skin">スマイルソーダ</string>
+    <string name="martini_skin">マティーニ</string>
+    <string name="whisky_skin">ウイスキー</string>
+
 </resources>

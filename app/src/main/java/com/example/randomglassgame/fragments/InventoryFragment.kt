@@ -45,7 +45,7 @@ class InventoryFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding = FragmentInventoryBinding.inflate(inflater, container, false)
 
-        adapter = InventoryAdapter(settings, binding.rvInventory, profile.inventory, audioManager())
+        adapter = InventoryAdapter(settings, binding.rvInventory, profile.inventory, audioManager(), requireContext())
 
         with(binding) {
             rvInventory.adapter = adapter

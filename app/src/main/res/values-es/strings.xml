@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--    CADENAS DEL JUEGO    -->
     <string name="app_name">Juego de Vidrios Aleatorios</string>
     <string name="settings">Ajustes</string>
     <string name="home">Inicio</string>
@@ -36,4 +38,23 @@
     <string name="music_upper">MÚSICA</string>
     <string name="tap_to_screen">Toque la pantalla…</string>
     <string name="achieves">Logros</string>
+
+    <!--    CADENAS DE SKINS    -->
+    <string name="default_skin">Predeterminado</string>
+    <string name="beer1_skin">¡Cerveza</string>
+    <string name="beer2_skin">Cerveza2</string>
+    <string name="beer_guinness_skin">Guinness</string>
+    <string name="wine1_skin">¡Vino</string>
+    <string name="wine2_skin">Vino2</string>
+    <string name="wine3_skin">Vino3</string>
+    <string name="tea_skin">Té</string>
+    <string name="juice_skin">Jugo</string>
+    <string name="coffee_skin">Café</string>
+    <string name="cocos_skin">Cocos</string>
+    <string name="soda1_skin">¡Refresco</string>
+    <string name="soda2_skin">Refresco2</string>
+    <string name="smile_soda_skin">SonrisaRefresco</string>
+    <string name="martini_skin">Martini</string>
+    <string name="whisky_skin">Whisky</string>
+
 </resources>
